@@ -1,0 +1,86 @@
+[
+  {
+    "id": 1,
+    "name": "Natural Whipped Tallow Cream (Moisturizer) Unscented",
+    "nameVi": "Kem duong da tu nhien Tallow Whipped - Khong huong",
+    "category": "Skincare",
+    "price": 180000,
+    "size": "60ml",
+    "description": "Whipped tallow moisturizer made with 100% grass-fed beef tallow. Deeply nourishing, unscented, suitable for sensitive skin. Great for face and body.",
+    "ingredients": "Grass-fed beef tallow, jojoba oil, vitamin E",
+    "notes": "Recommend patch test for first-time users. Store in cool place.",
+    "bestSeller": true
+  },
+  {
+    "id": 2,
+    "name": "Natural Multi-Purpose Surface Cleaner Lavender",
+    "nameVi": "Nuoc lau da nang tu nhien - Huong oai huong",
+    "category": "Cleaning",
+    "price": 200000,
+    "size": "500ml",
+    "description": "Plant-based multi-purpose surface cleaner with natural lavender essential oil. Safe for kitchen, bathroom, and all hard surfaces.",
+    "ingredients": "Coconut-derived surfactants, lavender essential oil, purified water",
+    "notes": "Cleans effectively but does not disinfect. Not a sanitizer.",
+    "bestSeller": false
+  },
+  {
+    "id": 3,
+    "name": "Natural Multi-Purpose Surface Cleaner Unscented",
+    "nameVi": "Nuoc lau da nang tu nhien - Khong huong",
+    "category": "Cleaning",
+    "price": 200000,
+    "size": "500ml",
+    "description": "Plant-based multi-purpose surface cleaner, unscented. Perfect for those sensitive to fragrances. Safe for all hard surfaces.",
+    "ingredients": "Coconut-derived surfactants, purified water",
+    "notes": "Cleans effectively but does not disinfect. Not a sanitizer.",
+    "bestSeller": false
+  },
+  {
+    "id": 4,
+    "name": "Cocoa Butter Mineral Sunscreen [PLANT BASED]",
+    "nameVi": "Kem chong nang khoang chat - Bo ca cao [Thuc vat]",
+    "category": "Skincare",
+    "price": 200000,
+    "size": "60ml",
+    "description": "Plant-based mineral sunscreen with cocoa butter. Non-nano zinc oxide for broad-spectrum protection. Moisturizing and gentle on skin.",
+    "ingredients": "Non-nano zinc oxide, cocoa butter, coconut oil, shea butter",
+    "notes": "Reef-safe. May leave slight white cast. Reapply every 2 hours in direct sun.",
+    "bestSeller": false
+  },
+  {
+    "id": 5,
+    "name": "Tallow Mineral Sunscreen [ACTIVE SPORTS]",
+    "nameVi": "Kem chong nang khoang chat Tallow [The thao]",
+    "category": "Skincare",
+    "price": 180000,
+    "size": "60ml",
+    "description": "Tallow-based mineral sunscreen formulated for active outdoor use. Water-resistant, with non-nano zinc oxide for broad-spectrum UV protection.",
+    "ingredients": "Non-nano zinc oxide, grass-fed beef tallow, beeswax, coconut oil",
+    "notes": "Water-resistant. Reef-safe. Reapply every 2 hours or after swimming/sweating.",
+    "bestSeller": false
+  },
+  {
+    "id": 6,
+    "name": "Natural Laundry Detergent Unscented",
+    "nameVi": "Bot giat tu nhien - Khong huong",
+    "category": "Cleaning",
+    "price": 300000,
+    "size": "1kg",
+    "description": "Concentrated natural laundry detergent. Gentle on fabrics and skin, tough on stains. No synthetic fragrances or harsh chemicals.",
+    "ingredients": "Sodium bicarbonate, washing soda, coconut-derived soap, citric acid",
+    "notes": "Concentrated formula — use less than conventional detergent. Works in all water temperatures.",
+    "bestSeller": false
+  },
+  {
+    "id": 7,
+    "name": "Natural Laundry Detergent Lavender",
+    "nameVi": "Bot giat tu nhien - Huong oai huong",
+    "category": "Cleaning",
+    "price": 300000,
+    "size": "1kg",
+    "description": "Concentrated natural laundry detergent with lavender essential oil. Leaves clothes clean with a gentle, natural lavender scent.",
+    "ingredients": "Sodium bicarbonate, washing soda, coconut-derived soap, citric acid, lavender essential oil",
+    "notes": "Concentrated formula — use less than conventional detergent. Works in all water temperatures.",
+    "bestSeller": false
+  }
+]

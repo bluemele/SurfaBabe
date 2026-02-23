@@ -1,0 +1,33 @@
+services:
+  surfagent:
+    build: .
+    container_name: surfagent
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3002:3002"
+    env_file:
+      - .env
+    volumes:
+      - ./auth:/app/auth
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - ./media:/app/media
+      - ./knowledge:/app/knowledge
+      # Claude CLI credentials
+      - /root/.claude/.credentials.json:/root/.claude/.credentials.json
+      - /root/.claude/settings.json:/root/.claude/settings.json:ro
+      - /root/.claude/settings.local.json:/root/.claude/settings.local.json:ro
+      - /root/.claude/debug:/root/.claude/debug
+      - /root/.claude/todos:/root/.claude/todos
+      - /root/.claude/projects:/root/.claude/projects
+      - /root/.claude/cache:/root/.claude/cache
+      - /root/.claude/session-env:/root/.claude/session-env
+      # Git credentials
+      - /root/.gitconfig:/tmp/.gitconfig-host:ro
+      - /root/.git-credentials:/tmp/.git-credentials-host:ro
+    networks:
+      - coolify
+
+networks:
+  coolify:
+    external: true

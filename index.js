@@ -53,7 +53,8 @@ const CONFIG = {
 
   // Claude CLI
   claudePath: process.env.CLAUDE_PATH || 'claude',
-  claudeModel: process.env.CLAUDE_MODEL || '',
+  claudeModelAdmin: process.env.CLAUDE_MODEL_ADMIN || 'claude-opus-4-6',
+  claudeModelCustomer: process.env.CLAUDE_MODEL_CUSTOMER || 'claude-sonnet-4-6',
   maxResponseTime: 120_000, // 2 min max for customer service
 
   // Response behavior — respond to ALL DMs (customer service)
@@ -719,9 +720,10 @@ async function askClaude(chatJid, senderJid, parsed, mediaResult) {
 
   const fullPrompt = prompt.join('\n');
 
-  // Build CLI args
+  // Build CLI args — Opus for admin (Ailie), Sonnet for customers
+  const model = isAdminUser ? CONFIG.claudeModelAdmin : CONFIG.claudeModelCustomer;
   const args = ['-p', '--output-format', 'text', '--max-turns', '5'];
-  if (CONFIG.claudeModel) args.push('--model', CONFIG.claudeModel);
+  if (model) args.push('--model', model);
   if (sessionId) args.push('--resume', sessionId);
 
   // All customers get read-only tools only (no shell access)

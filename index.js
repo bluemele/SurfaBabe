@@ -57,8 +57,8 @@ const CONFIG = {
   claudeModelCustomer: process.env.CLAUDE_MODEL_CUSTOMER || 'claude-sonnet-4-6',
   maxResponseTime: 120_000, // 2 min max for customer service
 
-  // Response behavior — respond to ALL DMs (customer service)
-  responseMode: 'all',
+  // Response behavior: 'all' = respond to every DM, 'silent' = listen/log only, no responses
+  responseMode: process.env.RESPONSE_MODE || 'silent',
   alwaysRespondToDMs: true,
 
   // Group behavior — respond when mentioned
@@ -902,6 +902,16 @@ async function handleSpecialCommand(text, chatJid, senderJid, sockRef) {
     return 'Order cancelled. No worries! Let me know if you need anything else.';
   }
 
+  // /mode — switch response mode (admin only)
+  if (cmd.startsWith('/mode') && isAdmin(senderJid)) {
+    const mode = cmd.split(' ')[1];
+    if (mode && ['all', 'silent'].includes(mode)) {
+      CONFIG.responseMode = mode;
+      return `Mode set to: ${mode}`;
+    }
+    return `Current mode: ${CONFIG.responseMode}\nUsage: /mode all — respond to messages\n/mode silent — listen only`;
+  }
+
   // /memory — view memory (admin only)
   if (cmd === '/memory' && isAdmin(senderJid)) {
     return `Customer memory:\n\n${await getMemory(chatJid)}`;
@@ -1165,6 +1175,15 @@ async function startBot() {
 
         // Read receipts
         if (CONFIG.readReceipts) await sock.readMessages([msg.key]).catch(() => {});
+
+        // Silent mode — listen, log, learn. Only admin commands get through.
+        if (CONFIG.responseMode === 'silent') {
+          if (isAdmin(senderJid) && parsed.type === 'text' && parsed.text?.startsWith('/')) {
+            // Let admin commands through below
+          } else {
+            continue;
+          }
+        }
 
         // Group: only respond to mentions/triggers
         if (isGroup(chatJid)) {

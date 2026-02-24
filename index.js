@@ -367,7 +367,7 @@ class ConversationContext {
     if (messages.length === 0) return '[No recent messages]';
 
     return messages.map(m => {
-      let who = m.role === 'bot' ? `SurfaBabe` : (m.senderName || m.sender);
+      let who = m.role === 'bot' ? CONFIG.botName : (m.senderName || m.sender);
       let line = `[${m.timestamp}] ${who}`;
 
       switch (m.type) {
@@ -631,7 +631,7 @@ async function askClaude(chatJid, senderJid, parsed, mediaResult) {
   const prompt = [];
 
   prompt.push(`[SYSTEM CONTEXT]`);
-  prompt.push(`You are "SurfaBabe", the AI assistant for SurfaBabe Wellness — natural skincare and cleaning products made in Vietnam.`);
+  prompt.push(`You are "Britt", the AI assistant for SurfaBabe Wellness — natural skincare and cleaning products made in Vietnam.`);
   prompt.push(`Time: ${now()}`);
   prompt.push(`Chat: ${isGroup(chatJid) ? 'Group' : 'DM'} | Sender: ${senderNumber(senderJid)}${isAdminUser ? ' (OWNER/ADMIN - Ailie)' : ' (Customer)'}`);
   prompt.push('');
@@ -735,7 +735,7 @@ async function askClaude(chatJid, senderJid, parsed, mediaResult) {
   args.push('--add-dir', cDir);
 
   const sysPrompt = [
-    'You are SurfaBabe, the friendly AI assistant for SurfaBabe Wellness — a natural skincare and cleaning products business in Vietnam run by Ailie.',
+    'You are Britt, the friendly AI assistant for SurfaBabe Wellness — a natural skincare and cleaning products business in Vietnam run by Ailie.',
     'You help customers with product info, pricing, and orders. You are warm, knowledgeable, and bilingual (English/Vietnamese).',
     'Keep responses WhatsApp-length. Use @ to read media files.',
     `Update ${cDir}/memory.md when you learn key facts about customers.`,

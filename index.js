@@ -1459,13 +1459,15 @@ async function startBot() {
         if (response && !isAdmin(senderJid) && !isGroup(chatJid)) {
           const phone = senderNumber(senderJid);
 
-          // Log inquiry interaction to CRM
-          logInteraction(
-            (await upsertCustomer(phone, senderName).catch(() => null))?.id,
-            'inquiry',
-            (parsed.text || `[${parsed.type}]`).substring(0, 200),
-            { response_preview: response.substring(0, 200) }
-          ).catch(() => {}); // non-blocking
+          // Log inquiry interaction to CRM (fully fire-and-forget)
+          upsertCustomer(phone, senderName)
+            .then(customer => customer?.id && logInteraction(
+              customer.id,
+              'inquiry',
+              (parsed.text || `[${parsed.type}]`).substring(0, 200),
+              { response_preview: response.substring(0, 200) }
+            ))
+            .catch(() => {});
 
           const orderState = getOrderState(chatJid);
           if (orderState && orderState.status === 'complete') {

@@ -9,6 +9,7 @@
 import express from 'express';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
+import { dbHealthCheck } from './db.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const WEBHOOK_TOKEN = process.env.WEBHOOK_TOKEN || '';
@@ -33,8 +34,14 @@ export function startServer(sockRef, sendResponse) {
   }
 
   // Health check
-  app.get('/health', (_req, res) => {
-    res.json({ status: 'ok', bot: 'SurfAgent', uptime: Math.floor(process.uptime()) });
+  app.get('/health', async (_req, res) => {
+    const dbStatus = await dbHealthCheck();
+    res.json({
+      status: 'ok',
+      bot: 'SurfAgent',
+      uptime: Math.floor(process.uptime()),
+      db: dbStatus,
+    });
   });
 
   // Send message

@@ -32,6 +32,7 @@ import { startServer } from './server.js';
 import { startScheduler, addReminder, removeReminder, listReminders } from './scheduler.js';
 import { loadProducts, loadFAQ, loadPolicies, formatCatalog } from './knowledge.js';
 import { getOrderState, startOrder, cancelOrder, viewCart } from './orders.js';
+import { initDb, upsertCustomer, logInteraction } from './db.js';
 
 // ============================================================
 // CONFIGURATION
@@ -1119,6 +1120,14 @@ async function startBot() {
         if (msg.pushName) contactNames.set(senderJid, msg.pushName);
         const senderName = msg.pushName || contactNames.get(senderJid) || senderNumber(senderJid);
 
+        // Track customer in DB (non-blocking, DMs only)
+        if (!isGroup(chatJid)) {
+          const phone = senderNumber(senderJid);
+          upsertCustomer(phone, senderName).catch(err =>
+            logger.debug({ err: err.message }, 'Customer upsert failed (DB may be starting)')
+          );
+        }
+
         const parsed = parseMessage(msg);
         if (!parsed) continue;
 
@@ -1273,8 +1282,17 @@ console.log(`
 
 const sockRef = { sock: null };
 
-startBot().then((sock) => {
+startBot().then(async (sock) => {
   sockRef.sock = sock;
+
+  // Initialize database (non-fatal — bot works without DB)
+  try {
+    await initDb();
+    console.log('Database connected and initialized');
+  } catch (err) {
+    console.error('Database init failed (bot will continue without DB):', err.message);
+  }
+
   startServer(sockRef, sendResponse);
   startScheduler(sockRef);
 }).catch((err) => {

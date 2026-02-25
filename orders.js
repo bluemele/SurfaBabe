@@ -3,12 +3,14 @@
  *
  * States: idle → collecting_items → collecting_address → collecting_payment → confirming → complete
  *
- * Persisted per-chat in data/<chatJid>/order.json
- * Completed orders saved to data/orders/<timestamp>.json
+ * Persisted per-chat in data/<chatJid>/order.json (active order state)
+ * Completed orders saved to DB (orders + order_items + payments + crm_interactions)
+ * Falls back to JSON file if DB is unavailable
  */
 
 import fs from 'fs';
 import path from 'path';
+import * as db from './db.js';
 
 const DATA_DIR = process.env.DATA_DIR || './data';
 const ORDERS_DIR = path.join(DATA_DIR, 'orders');
@@ -124,12 +126,15 @@ export function setPayment(chatJid, method) {
   return order;
 }
 
-export function confirmOrder(chatJid) {
+/**
+ * Complete an order — saves to DB + JSON fallback.
+ * Returns the order record with orderId.
+ */
+export async function confirmOrder(chatJid, customerPhone) {
   const order = loadOrder(chatJid);
   order.status = 'complete';
   order.completedAt = new Date().toISOString();
 
-  // Save completed order
   const timestamp = Date.now();
   const orderRecord = {
     ...order,
@@ -137,13 +142,42 @@ export function confirmOrder(chatJid) {
     orderId: `SB-${timestamp}`,
   };
 
+  // Save to JSON (always — serves as backup)
   try {
     fs.writeFileSync(
       path.join(ORDERS_DIR, `${timestamp}.json`),
       JSON.stringify(orderRecord, null, 2)
     );
   } catch (err) {
-    console.error('Failed to save completed order:', err.message);
+    console.error('Failed to save completed order JSON:', err.message);
+  }
+
+  // Save to DB
+  try {
+    const customer = customerPhone ? await db.getCustomerByPhone(customerPhone) : null;
+    const customerId = customer?.id || null;
+
+    const items = order.items.map(i => ({
+      productId: i.productId || null,
+      productName: i.name,
+      quantity: i.quantity,
+      unitPrice: i.price,
+    }));
+
+    const dbOrder = await db.createOrder(customerId, items, order.address, order.paymentMethod);
+    orderRecord.dbOrderId = dbOrder.id;
+    orderRecord.orderId = dbOrder.order_number;
+
+    // Log CRM interaction
+    if (customerId) {
+      await db.logInteraction(customerId, 'order', `Order ${dbOrder.order_number} completed`, {
+        order_id: dbOrder.id,
+        total: dbOrder.total,
+        items: items.map(i => `${i.productName} x${i.quantity}`),
+      });
+    }
+  } catch (err) {
+    console.error('Failed to save order to DB (JSON backup exists):', err.message);
   }
 
   saveOrder(chatJid, order);

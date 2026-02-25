@@ -7,6 +7,9 @@ services:
       - "127.0.0.1:3002:3002"
     env_file:
       - .env
+    depends_on:
+      surfagent-db:
+        condition: service_healthy
     volumes:
       - ./auth:/app/auth
       - ./data:/app/data
@@ -28,6 +31,27 @@ services:
       - /root/.git-credentials:/tmp/.git-credentials-host:ro
     networks:
       - coolify
+
+  surfagent-db:
+    image: postgres:16-alpine
+    container_name: surfagent-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: surfababe
+      POSTGRES_PASSWORD: surfababe_secret_2026
+      POSTGRES_DB: surfababe
+    volumes:
+      - surfagent-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U surfababe"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    networks:
+      - coolify
+
+volumes:
+  surfagent-pgdata:
 
 networks:
   coolify:

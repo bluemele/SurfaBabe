@@ -202,6 +202,113 @@ export async function createInvoice(orderId, customerId, amount, dueDate) {
   return rows[0];
 }
 
+// ---- CRM query helpers (admin commands) ----
+
+export async function getRecentCustomers(limit = 20) {
+  const { rows } = await query(
+    `SELECT c.*,
+       (SELECT count(*) FROM orders WHERE customer_id = c.id) AS order_count,
+       (SELECT COALESCE(sum(total), 0) FROM orders WHERE customer_id = c.id AND status NOT IN ('cancelled')) AS total_spent
+     FROM customers c ORDER BY c.updated_at DESC LIMIT $1`,
+    [limit]
+  );
+  return rows;
+}
+
+export async function getRecentOrders(limit = 20) {
+  const { rows } = await query(
+    `SELECT o.*, c.name AS customer_name, c.phone AS customer_phone
+     FROM orders o
+     LEFT JOIN customers c ON o.customer_id = c.id
+     ORDER BY o.created_at DESC LIMIT $1`,
+    [limit]
+  );
+  return rows;
+}
+
+export async function getOrderDetails(orderNumber) {
+  const { rows: orderRows } = await query(
+    `SELECT o.*, c.name AS customer_name, c.phone AS customer_phone
+     FROM orders o
+     LEFT JOIN customers c ON o.customer_id = c.id
+     WHERE o.order_number = $1`,
+    [orderNumber]
+  );
+  if (orderRows.length === 0) return null;
+  const order = orderRows[0];
+
+  const { rows: items } = await query(
+    'SELECT * FROM order_items WHERE order_id = $1',
+    [order.id]
+  );
+  const { rows: payments } = await query(
+    'SELECT * FROM payments WHERE order_id = $1',
+    [order.id]
+  );
+  return { ...order, items, payments };
+}
+
+export async function getCustomerProfile(phone) {
+  const customer = await getCustomerByPhone(phone);
+  if (!customer) return null;
+
+  const orders = await getCustomerOrders(customer.id);
+  const { rows: interactions } = await query(
+    'SELECT * FROM crm_interactions WHERE customer_id = $1 ORDER BY created_at DESC LIMIT 10',
+    [customer.id]
+  );
+  return { ...customer, orders, interactions };
+}
+
+export async function addCustomerNote(phone, note) {
+  const customer = await getCustomerByPhone(phone);
+  if (!customer) return null;
+  const existing = customer.notes || '';
+  const timestamp = new Date().toISOString().split('T')[0];
+  const updated = existing ? `${existing}\n[${timestamp}] ${note}` : `[${timestamp}] ${note}`;
+  await query('UPDATE customers SET notes = $2, updated_at = NOW() WHERE id = $1', [customer.id, updated]);
+  await logInteraction(customer.id, 'note', note);
+  return { ...customer, notes: updated };
+}
+
+export async function addCustomerTag(phone, tag) {
+  const customer = await getCustomerByPhone(phone);
+  if (!customer) return null;
+  await query(
+    `UPDATE customers SET tags = array_append(
+       COALESCE(tags, '{}'),
+       $2
+     ), updated_at = NOW()
+     WHERE id = $1 AND NOT ($2 = ANY(COALESCE(tags, '{}')))`,
+    [customer.id, tag.toLowerCase()]
+  );
+  const updated = await getCustomerByPhone(phone);
+  return updated;
+}
+
+export async function removeCustomerTag(phone, tag) {
+  const customer = await getCustomerByPhone(phone);
+  if (!customer) return null;
+  await query(
+    'UPDATE customers SET tags = array_remove(COALESCE(tags, $3), $2), updated_at = NOW() WHERE id = $1',
+    [customer.id, tag.toLowerCase(), '{}']
+  );
+  return await getCustomerByPhone(phone);
+}
+
+export async function getCustomerStats() {
+  const { rows } = await query(`
+    SELECT
+      (SELECT count(*) FROM customers) AS total_customers,
+      (SELECT count(*) FROM orders) AS total_orders,
+      (SELECT count(*) FROM orders WHERE status = 'confirmed') AS pending_orders,
+      (SELECT count(*) FROM orders WHERE status = 'paid') AS paid_orders,
+      (SELECT COALESCE(sum(total), 0) FROM orders WHERE status NOT IN ('cancelled')) AS total_revenue,
+      (SELECT count(*) FROM payments WHERE status = 'pending') AS pending_payments
+  `);
+  return rows[0];
+}
+
 // ---- Health check ----
 
 export async function dbHealthCheck() {

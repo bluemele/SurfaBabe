@@ -32,7 +32,12 @@ import { startServer } from './server.js';
 import { startScheduler, addReminder, removeReminder, listReminders } from './scheduler.js';
 import { loadProducts, loadFAQ, loadPolicies, formatCatalog } from './knowledge.js';
 import { getOrderState, startOrder, cancelOrder, viewCart } from './orders.js';
-import { initDb, upsertCustomer, logInteraction } from './db.js';
+import {
+  initDb, upsertCustomer, logInteraction,
+  getRecentCustomers, getRecentOrders, getOrderDetails, getCustomerProfile,
+  addCustomerNote, addCustomerTag, removeCustomerTag, getCustomerStats,
+  confirmPayment, getOrderByNumber,
+} from './db.js';
 
 // ============================================================
 // CONFIGURATION
@@ -125,6 +130,20 @@ function isGroup(jid) {
 
 function senderNumber(jid) {
   return jid.split('@')[0].split(':')[0];
+}
+
+// Simple Vietnamese detection — checks for Vietnamese diacritical marks
+function detectLanguage(msg) {
+  const text = msg.message?.conversation
+    || msg.message?.extendedTextMessage?.text
+    || '';
+  if (!text) return null;
+  // Vietnamese diacritics: ắ, ằ, ẵ, ặ, ấ, ầ, ẩ, ể, ễ, ệ, ố, ồ, ổ, ỗ, ộ, ớ, ờ, ở, ỡ, ợ, ứ, ừ, ử, ữ, ự, ỳ, ỹ, ỷ, ỵ
+  const viPattern = /[\u00C0-\u00FF\u0100-\u024F\u1E00-\u1EFF]/;
+  // Common Vietnamese words
+  const viWords = /\b(xin|chào|bạn|mình|không|có|được|của|này|cho|với|là|rất|nhé|ạ|vâng|dạ|tôi|anh|chị|em|ơi)\b/i;
+  if (viPattern.test(text) && viWords.test(text)) return 'vi';
+  return 'en';
 }
 
 function now() {
@@ -994,6 +1013,193 @@ async function handleSpecialCommand(text, chatJid, senderJid, sockRef) {
     return removed ? `Reminder ${id} cancelled.` : `Reminder ${id} not found.`;
   }
 
+  // ---- CRM ADMIN COMMANDS ----
+
+  // /stats — CRM dashboard summary
+  if (cmd === '/stats' && isAdmin(senderJid)) {
+    try {
+      const s = await getCustomerStats();
+      return [
+        '*CRM Dashboard*',
+        '',
+        `Customers: ${s.total_customers}`,
+        `Orders: ${s.total_orders} (${s.pending_orders} pending, ${s.paid_orders} paid)`,
+        `Revenue: ${Number(s.total_revenue).toLocaleString()}₫`,
+        `Pending payments: ${s.pending_payments}`,
+      ].join('\n');
+    } catch (err) {
+      return `DB error: ${err.message}`;
+    }
+  }
+
+  // /customers — list recent customers
+  if (cmd === '/customers' && isAdmin(senderJid)) {
+    try {
+      const customers = await getRecentCustomers(15);
+      if (customers.length === 0) return 'No customers yet.';
+      const lines = ['*Recent Customers*\n'];
+      for (const c of customers) {
+        const tags = c.tags?.length ? ` [${c.tags.join(', ')}]` : '';
+        lines.push(`• ${c.name || 'Unknown'} — ${c.phone}${tags}`);
+        lines.push(`  Orders: ${c.order_count} | Spent: ${Number(c.total_spent).toLocaleString()}₫`);
+      }
+      return lines.join('\n');
+    } catch (err) {
+      return `DB error: ${err.message}`;
+    }
+  }
+
+  // /customer <phone> — view customer profile
+  if (cmd.startsWith('/customer ') && isAdmin(senderJid)) {
+    const phone = fullText.substring(10).trim().replace(/[^0-9]/g, '');
+    if (!phone) return 'Usage: /customer <phone number>';
+    try {
+      const profile = await getCustomerProfile(phone);
+      if (!profile) return `Customer ${phone} not found.`;
+      const lines = [
+        `*Customer: ${profile.name || 'Unknown'}*`,
+        `Phone: ${profile.phone}`,
+        `Language: ${profile.language || 'en'}`,
+        `Source: ${profile.source}`,
+        `Since: ${new Date(profile.created_at).toLocaleDateString()}`,
+      ];
+      if (profile.tags?.length) lines.push(`Tags: ${profile.tags.join(', ')}`);
+      if (profile.notes) lines.push(`\nNotes:\n${profile.notes}`);
+      if (profile.orders.length > 0) {
+        lines.push('\n*Orders:*');
+        for (const o of profile.orders.slice(0, 10)) {
+          lines.push(`  ${o.order_number} — ${o.status} — ${Number(o.total).toLocaleString()}₫ (${new Date(o.created_at).toLocaleDateString()})`);
+        }
+      }
+      if (profile.interactions.length > 0) {
+        lines.push('\n*Recent Activity:*');
+        for (const i of profile.interactions.slice(0, 5)) {
+          lines.push(`  [${i.type}] ${i.summary || '(no summary)'} — ${new Date(i.created_at).toLocaleDateString()}`);
+        }
+      }
+      return lines.join('\n');
+    } catch (err) {
+      return `DB error: ${err.message}`;
+    }
+  }
+
+  // /orders — list recent orders
+  if (cmd === '/orders' && isAdmin(senderJid)) {
+    try {
+      const orders = await getRecentOrders(15);
+      if (orders.length === 0) return 'No orders yet.';
+      const lines = ['*Recent Orders*\n'];
+      for (const o of orders) {
+        const customer = o.customer_name || o.customer_phone || 'Unknown';
+        lines.push(`• ${o.order_number} — ${o.status}`);
+        lines.push(`  ${customer} | ${Number(o.total).toLocaleString()}₫ | ${new Date(o.created_at).toLocaleDateString()}`);
+      }
+      return lines.join('\n');
+    } catch (err) {
+      return `DB error: ${err.message}`;
+    }
+  }
+
+  // /order <SB-xxx> — view specific order (admin overload of /order)
+  if (cmd.startsWith('/order ') && isAdmin(senderJid)) {
+    const orderNum = fullText.substring(7).trim().toUpperCase();
+    if (!orderNum.startsWith('SB-')) return null; // Fall through to normal /order handling
+    try {
+      const detail = await getOrderDetails(orderNum);
+      if (!detail) return `Order ${orderNum} not found.`;
+      const lines = [
+        `*Order ${detail.order_number}*`,
+        `Status: ${detail.status}`,
+        `Customer: ${detail.customer_name || 'Unknown'} (${detail.customer_phone || 'N/A'})`,
+        `Address: ${detail.delivery_address || 'N/A'}`,
+        `Payment: ${detail.payment_method || 'N/A'}`,
+        `Date: ${new Date(detail.created_at).toLocaleString()}`,
+        '',
+        '*Items:*',
+      ];
+      for (const item of detail.items) {
+        lines.push(`  • ${item.product_name} x${item.quantity} — ${Number(item.subtotal).toLocaleString()}₫`);
+      }
+      lines.push(`\nSubtotal: ${Number(detail.subtotal).toLocaleString()}₫`);
+      if (detail.shipping_cost > 0) lines.push(`Shipping: ${Number(detail.shipping_cost).toLocaleString()}₫`);
+      lines.push(`*Total: ${Number(detail.total).toLocaleString()}₫*`);
+      if (detail.payments.length > 0) {
+        lines.push('\n*Payments:*');
+        for (const p of detail.payments) {
+          const confirmed = p.confirmed_at ? ` (${new Date(p.confirmed_at).toLocaleDateString()})` : '';
+          lines.push(`  ${p.method} — ${p.status}${confirmed}${p.reference ? ` ref: ${p.reference}` : ''}`);
+        }
+      }
+      return lines.join('\n');
+    } catch (err) {
+      return `DB error: ${err.message}`;
+    }
+  }
+
+  // /paid <SB-xxx> [reference] — confirm payment
+  if (cmd.startsWith('/paid ') && isAdmin(senderJid)) {
+    const parts = fullText.substring(6).trim().split(/\s+/);
+    const orderNum = parts[0]?.toUpperCase();
+    const reference = parts.slice(1).join(' ') || null;
+    if (!orderNum) return 'Usage: /paid <order-number> [reference]\nExample: /paid SB-abc123 MoMo-TXN456';
+    try {
+      const order = await getOrderByNumber(orderNum);
+      if (!order) return `Order ${orderNum} not found.`;
+      if (order.status === 'paid') return `Order ${orderNum} is already paid.`;
+      await confirmPayment(order.id, reference);
+      if (order.customer_id) {
+        await logInteraction(order.customer_id, 'payment', `Payment confirmed for ${orderNum}${reference ? ` (ref: ${reference})` : ''}`);
+      }
+      return `Payment confirmed for ${orderNum}${reference ? `\nReference: ${reference}` : ''}`;
+    } catch (err) {
+      return `DB error: ${err.message}`;
+    }
+  }
+
+  // /note <phone> <text> — add CRM note
+  if (cmd.startsWith('/note ') && isAdmin(senderJid)) {
+    const parts = fullText.substring(6).trim().split(/\s+/);
+    const phone = parts[0]?.replace(/[^0-9]/g, '');
+    const noteText = parts.slice(1).join(' ');
+    if (!phone || !noteText) return 'Usage: /note <phone> <note text>';
+    try {
+      const result = await addCustomerNote(phone, noteText);
+      if (!result) return `Customer ${phone} not found.`;
+      return `Note added to ${result.name || phone}.`;
+    } catch (err) {
+      return `DB error: ${err.message}`;
+    }
+  }
+
+  // /tag <phone> <tag> — add/remove customer tag
+  if (cmd.startsWith('/tag ') && isAdmin(senderJid)) {
+    const parts = fullText.substring(5).trim().split(/\s+/);
+    const phone = parts[0]?.replace(/[^0-9]/g, '');
+    const tag = parts[1]?.toLowerCase();
+    if (!phone || !tag) return 'Usage: /tag <phone> <tag>\nRemove: /untag <phone> <tag>';
+    try {
+      const result = await addCustomerTag(phone, tag);
+      if (!result) return `Customer ${phone} not found.`;
+      return `Tag "${tag}" added to ${result.name || phone}.\nTags: ${result.tags?.join(', ') || 'none'}`;
+    } catch (err) {
+      return `DB error: ${err.message}`;
+    }
+  }
+
+  if (cmd.startsWith('/untag ') && isAdmin(senderJid)) {
+    const parts = fullText.substring(7).trim().split(/\s+/);
+    const phone = parts[0]?.replace(/[^0-9]/g, '');
+    const tag = parts[1]?.toLowerCase();
+    if (!phone || !tag) return 'Usage: /untag <phone> <tag>';
+    try {
+      const result = await removeCustomerTag(phone, tag);
+      if (!result) return `Customer ${phone} not found.`;
+      return `Tag "${tag}" removed from ${result.name || phone}.\nTags: ${result.tags?.join(', ') || 'none'}`;
+    } catch (err) {
+      return `DB error: ${err.message}`;
+    }
+  }
+
   // /help
   if (cmd === '/help') {
     if (isAdmin(senderJid)) {
@@ -1011,10 +1217,22 @@ async function handleSpecialCommand(text, chatJid, senderJid, sockRef) {
         'Admin Commands:',
         '/memory — Customer memory for this chat',
         '/context — Recent messages',
+        '/mode all|silent — Toggle responses',
         '/remind <time> <msg> — Set reminder',
         '/reminders — View reminders',
         '/qr <text> — Generate QR code',
         '/tts <text> — Text to voice note',
+        '',
+        'CRM Commands:',
+        '/stats — Dashboard summary',
+        '/customers — Recent customers',
+        '/customer <phone> — Customer profile',
+        '/orders — Recent orders',
+        '/order <SB-xxx> — Order details',
+        '/paid <SB-xxx> [ref] — Confirm payment',
+        '/note <phone> <text> — Add CRM note',
+        '/tag <phone> <tag> — Tag customer',
+        '/untag <phone> <tag> — Remove tag',
       ].join('\n');
     }
 
@@ -1123,7 +1341,8 @@ async function startBot() {
         // Track customer in DB (non-blocking, DMs only)
         if (!isGroup(chatJid)) {
           const phone = senderNumber(senderJid);
-          upsertCustomer(phone, senderName).catch(err =>
+          const detectedLang = detectLanguage(msg);
+          upsertCustomer(phone, senderName, detectedLang).catch(err =>
             logger.debug({ err: err.message }, 'Customer upsert failed (DB may be starting)')
           );
         }
@@ -1236,8 +1455,18 @@ async function startBot() {
         await logMessage(chatJid, senderJid, 'bot', response);
         logger.info(`Reply to ${senderName}: ${response.substring(0, 100)}...`);
 
-        // Notify admin of new order completions
-        if (response && !isAdmin(senderJid)) {
+        // CRM: log customer interactions + notify admin of order completions
+        if (response && !isAdmin(senderJid) && !isGroup(chatJid)) {
+          const phone = senderNumber(senderJid);
+
+          // Log inquiry interaction to CRM
+          logInteraction(
+            (await upsertCustomer(phone, senderName).catch(() => null))?.id,
+            'inquiry',
+            (parsed.text || `[${parsed.type}]`).substring(0, 200),
+            { response_preview: response.substring(0, 200) }
+          ).catch(() => {}); // non-blocking
+
           const orderState = getOrderState(chatJid);
           if (orderState && orderState.status === 'complete') {
             const adminJid = `${CONFIG.adminNumber}@s.whatsapp.net`;

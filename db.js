@@ -7,6 +7,7 @@
 import pg from 'pg';
 import fs from 'fs';
 import path from 'path';
+import crypto from 'crypto';
 
 const { Pool } = pg;
 
@@ -93,41 +94,52 @@ export async function getCustomerByPhone(phone) {
 // ---- Order helpers ----
 
 function generateOrderNumber() {
-  const ts = Date.now().toString().slice(-5);
-  const rand = Math.floor(Math.random() * 100).toString().padStart(2, '0');
-  return `SB-${ts}${rand}`;
+  const ts = Date.now().toString(36);
+  const rand = crypto.randomBytes(3).toString('hex');
+  return `SB-${ts}-${rand}`;
 }
 
 export async function createOrder(customerId, items, address, paymentMethod) {
-  const orderNumber = generateOrderNumber();
-  const subtotal = items.reduce((t, i) => t + i.unitPrice * i.quantity, 0);
-  const total = subtotal; // shipping added later if needed
+  const client = await getPool().connect();
+  try {
+    await client.query('BEGIN');
 
-  const { rows } = await query(
-    `INSERT INTO orders (order_number, customer_id, status, subtotal, total, delivery_address, payment_method)
-     VALUES ($1, $2, 'confirmed', $3, $4, $5, $6) RETURNING *`,
-    [orderNumber, customerId, subtotal, total, address || null, paymentMethod || null]
-  );
-  const order = rows[0];
+    const orderNumber = generateOrderNumber();
+    const subtotal = items.reduce((t, i) => t + i.unitPrice * i.quantity, 0);
+    const total = subtotal; // shipping added later if needed
 
-  // Insert line items
-  for (const item of items) {
-    await query(
-      `INSERT INTO order_items (order_id, product_id, product_name, quantity, unit_price, subtotal)
-       VALUES ($1, $2, $3, $4, $5, $6)`,
-      [order.id, item.productId || null, item.productName, item.quantity, item.unitPrice, item.unitPrice * item.quantity]
+    const { rows } = await client.query(
+      `INSERT INTO orders (order_number, customer_id, status, subtotal, total, delivery_address, payment_method)
+       VALUES ($1, $2, 'confirmed', $3, $4, $5, $6) RETURNING *`,
+      [orderNumber, customerId, subtotal, total, address || null, paymentMethod || null]
     );
-  }
+    const order = rows[0];
 
-  // Create pending payment
-  if (paymentMethod) {
-    await query(
-      `INSERT INTO payments (order_id, amount, method, status) VALUES ($1, $2, $3, 'pending')`,
-      [order.id, total, paymentMethod]
-    );
-  }
+    // Insert line items
+    for (const item of items) {
+      await client.query(
+        `INSERT INTO order_items (order_id, product_id, product_name, quantity, unit_price, subtotal)
+         VALUES ($1, $2, $3, $4, $5, $6)`,
+        [order.id, item.productId || null, item.productName, item.quantity, item.unitPrice, item.unitPrice * item.quantity]
+      );
+    }
 
-  return order;
+    // Create pending payment
+    if (paymentMethod) {
+      await client.query(
+        `INSERT INTO payments (order_id, amount, method, status) VALUES ($1, $2, $3, 'pending')`,
+        [order.id, total, paymentMethod]
+      );
+    }
+
+    await client.query('COMMIT');
+    return order;
+  } catch (err) {
+    await client.query('ROLLBACK');
+    throw err;
+  } finally {
+    client.release();
+  }
 }
 
 export async function updateOrderStatus(orderId, status) {
@@ -175,9 +187,9 @@ export async function logInteraction(customerId, type, summary, metadata) {
 // ---- Invoice helpers ----
 
 function generateInvoiceNumber() {
-  const ts = Date.now().toString().slice(-5);
-  const rand = Math.floor(Math.random() * 100).toString().padStart(2, '0');
-  return `INV-${ts}${rand}`;
+  const ts = Date.now().toString(36);
+  const rand = crypto.randomBytes(3).toString('hex');
+  return `INV-${ts}-${rand}`;
 }
 
 export async function createInvoice(orderId, customerId, amount, dueDate) {

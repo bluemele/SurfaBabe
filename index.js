@@ -1282,19 +1282,15 @@ console.log(`
 
 const sockRef = { sock: null };
 
-startBot().then(async (sock) => {
+startBot().then((sock) => {
   sockRef.sock = sock;
-
-  // Initialize database (non-fatal — bot works without DB)
-  try {
-    await initDb();
-    console.log('Database connected and initialized');
-  } catch (err) {
-    console.error('Database init failed (bot will continue without DB):', err.message);
-  }
-
   startServer(sockRef, sendResponse);
   startScheduler(sockRef);
+
+  // Initialize database in background (non-fatal — bot works without DB)
+  initDb()
+    .then(() => console.log('Database connected and initialized'))
+    .catch(err => console.error('Database init failed (bot continues without DB):', err.message));
 }).catch((err) => {
   console.error('Fatal:', err);
   process.exit(1);

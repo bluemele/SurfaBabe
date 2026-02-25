@@ -23,7 +23,7 @@ COPY package.json ./
 RUN npm install
 
 # Copy app files
-COPY index.js server.js scheduler.js knowledge.js orders.js CLAUDE.md ./
+COPY index.js server.js scheduler.js knowledge.js orders.js db.js schema.sql CLAUDE.md ./
 
 # Copy knowledge base and scripts
 COPY knowledge/ ./knowledge/

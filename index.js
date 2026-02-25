@@ -19,20 +19,19 @@ import makeWASocket, {
   downloadMediaMessage,
   getContentType,
 } from '@whiskeysockets/baileys';
-import { Boom } from '@hapi/boom';
 import pino from 'pino';
 import { spawn } from 'child_process';
 import fs from 'fs/promises';
 import path from 'path';
-import { existsSync, mkdirSync } from 'fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import crypto from 'crypto';
 import qrcode from 'qrcode-terminal';
 import QRCode from 'qrcode';
 
 import { startServer } from './server.js';
 import { startScheduler, addReminder, removeReminder, listReminders } from './scheduler.js';
-import { loadProducts, loadFAQ, loadPolicies, formatCatalog, formatForCustomer } from './knowledge.js';
-import { getOrderState, startOrder, addToCart, setAddress, setPayment, confirmOrder, cancelOrder, viewCart } from './orders.js';
+import { loadProducts, loadFAQ, loadPolicies, formatCatalog } from './knowledge.js';
+import { getOrderState, startOrder, cancelOrder, viewCart } from './orders.js';
 
 // ============================================================
 // CONFIGURATION
@@ -334,7 +333,7 @@ class ConversationContext {
   _load(chatJid) {
     if (this.contexts.has(chatJid)) return;
     try {
-      const data = require('fs').readFileSync(this._contextFile(chatJid), 'utf-8');
+      const data = readFileSync(this._contextFile(chatJid), 'utf-8');
       this.contexts.set(chatJid, JSON.parse(data));
     } catch {
       this.contexts.set(chatJid, []);
@@ -345,7 +344,7 @@ class ConversationContext {
     const ctx = this.contexts.get(chatJid) || [];
     try {
       ensureDir(contactDir(chatJid));
-      require('fs').writeFileSync(this._contextFile(chatJid), JSON.stringify(ctx));
+      writeFileSync(this._contextFile(chatJid), JSON.stringify(ctx));
     } catch { /* best effort */ }
   }
 
@@ -875,7 +874,7 @@ async function handleSpecialCommand(text, chatJid, senderJid, sockRef) {
 
   // /order — start order
   if (cmd === '/order') {
-    const state = startOrder(chatJid);
+    startOrder(chatJid);
     return 'Great! Let\'s start your order. What products would you like? You can say the product name or number from /catalog.\n\nTuyet voi! Bat dau dat hang nhe. Ban muon mua san pham nao?';
   }
 
@@ -1229,7 +1228,7 @@ async function startBot() {
         logger.info(`Reply to ${senderName}: ${response.substring(0, 100)}...`);
 
         // Notify admin of new order completions
-        if (response && !isAdminUser) {
+        if (response && !isAdmin(senderJid)) {
           const orderState = getOrderState(chatJid);
           if (orderState && orderState.status === 'complete') {
             const adminJid = `${CONFIG.adminNumber}@s.whatsapp.net`;

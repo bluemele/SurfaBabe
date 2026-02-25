@@ -7,13 +7,19 @@
  */
 
 import express from 'express';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
 
+const __dirname = dirname(fileURLToPath(import.meta.url));
 const WEBHOOK_TOKEN = process.env.WEBHOOK_TOKEN || '';
 const WEBHOOK_PORT = parseInt(process.env.WEBHOOK_PORT || '3002');
 const ADMIN_JID = `${process.env.ADMIN_NUMBER}@s.whatsapp.net`;
 
 export function startServer(sockRef, sendResponse) {
   const app = express();
+
+  // Serve static website from public/
+  app.use(express.static(join(__dirname, 'public')));
 
   app.use(express.json({ limit: '1mb' }));
 

@@ -13,6 +13,7 @@ services:
       - ./logs:/app/logs
       - ./media:/app/media
       - ./knowledge:/app/knowledge
+      - ./public:/app/public
       # Claude CLI credentials
       - /root/.claude/.credentials.json:/root/.claude/.credentials.json
       - /root/.claude/settings.json:/root/.claude/settings.json:ro

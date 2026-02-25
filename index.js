@@ -1460,13 +1460,11 @@ async function startBot() {
           const phone = senderNumber(senderJid);
 
           // Log inquiry interaction to CRM (fully fire-and-forget)
+          const inquirySummary = (parsed.text || `[${parsed.type}]`).substring(0, 200);
+          const inquiryMeta = { response_preview: response.substring(0, 200) };
           upsertCustomer(phone, senderName)
-            .then(customer => customer?.id && logInteraction(
-              customer.id,
-              'inquiry',
-              (parsed.text || `[${parsed.type}]`).substring(0, 200),
-              { response_preview: response.substring(0, 200) }
-            ))
+            .then(customer => logInteraction(customer?.id || null, 'inquiry', inquirySummary, inquiryMeta))
+            .catch(() => logInteraction(null, 'inquiry', inquirySummary, { ...inquiryMeta, phone }))
             .catch(() => {});
 
           const orderState = getOrderState(chatJid);

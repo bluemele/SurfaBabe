@@ -1462,9 +1462,8 @@ async function startBot() {
           // Log inquiry interaction to CRM (fully fire-and-forget)
           const inquirySummary = (parsed.text || `[${parsed.type}]`).substring(0, 200);
           const inquiryMeta = { response_preview: response.substring(0, 200) };
-          upsertCustomer(phone, senderName)
-            .then(customer => logInteraction(customer?.id || null, 'inquiry', inquirySummary, inquiryMeta))
-            .catch(() => logInteraction(null, 'inquiry', inquirySummary, { ...inquiryMeta, phone }))
+          const customerId = await upsertCustomer(phone, senderName).then(c => c?.id || null).catch(() => null);
+          logInteraction(customerId, 'inquiry', inquirySummary, customerId ? inquiryMeta : { ...inquiryMeta, phone })
             .catch(() => {});
 
           const orderState = getOrderState(chatJid);

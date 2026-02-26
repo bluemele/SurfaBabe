@@ -637,7 +637,7 @@ async function askClaude(chatJid, senderJid, parsed, mediaResult) {
   const isAdminUser = isAdmin(senderJid);
   const memory = await getMemory(chatJid);
   const recentContext = conversationContext.format(chatJid, 30);
-  const sessionId = await getSessionId(chatJid);
+  let sessionId = await getSessionId(chatJid);
 
   // Load knowledge base
   const catalog = formatCatalog();
@@ -741,7 +741,7 @@ async function askClaude(chatJid, senderJid, parsed, mediaResult) {
 
   // Build CLI args — Opus for admin (Ailie), Sonnet for customers
   const model = isAdminUser ? CONFIG.claudeModelAdmin : CONFIG.claudeModelCustomer;
-  const args = ['-p', '--output-format', 'text', '--max-turns', '5'];
+  const args = ['-p', '--output-format', 'json', '--max-turns', '5'];
   if (model) args.push('--model', model);
   if (sessionId) args.push('--resume', sessionId);
 
@@ -786,6 +786,16 @@ async function askClaude(chatJid, senderJid, parsed, mediaResult) {
 
       proc.on('close', async (code) => {
         if (code !== 0 && !stdout) {
+          // If resume failed (stale session), clear session and retry fresh
+          if (sessionId && stderr.includes('session') && attempt < MAX_RETRIES) {
+            logger.warn({ sessionId, stderr: stderr.substring(0, 300) }, 'Stale session, clearing and retrying fresh');
+            try { await fs.unlink(path.join(contactDir(chatJid), 'session_id')); } catch {}
+            sessionId = null;
+            const resumeIdx = args.indexOf('--resume');
+            if (resumeIdx !== -1) args.splice(resumeIdx, 2);
+            resolve({ retry: true });
+            return;
+          }
           logger.error({ code, stderr: stderr.substring(0, 300), attempt }, 'Claude error');
           if (RETRYABLE_CODES.has(code) && attempt < MAX_RETRIES) {
             resolve({ retry: true });
@@ -795,10 +805,18 @@ async function askClaude(chatJid, senderJid, parsed, mediaResult) {
           return;
         }
 
-        const match = stderr.match(/session[:\s]+([a-f0-9-]+)/i);
-        if (match) await saveSessionId(chatJid, match[1]);
-
-        let response = stdout.trim();
+        // Parse JSON response for session_id and result text
+        let response = '';
+        const rawOutput = stdout.trim();
+        try {
+          const parsed = JSON.parse(rawOutput);
+          if (parsed.session_id) await saveSessionId(chatJid, parsed.session_id);
+          response = (parsed.result || '').trim();
+        } catch {
+          response = rawOutput;
+          const match = stderr.match(/session[:\s]+([a-f0-9-]+)/i);
+          if (match) await saveSessionId(chatJid, match[1]);
+        }
         resolve({ retry: false, text: response || "I'm not sure how to help with that. Could you rephrase?" });
       });
 

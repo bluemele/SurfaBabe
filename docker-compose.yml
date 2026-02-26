@@ -1,14 +1,14 @@
 services:
-  surfagent:
+  surfababe:
     build: .
-    container_name: surfagent
+    container_name: surfababe
     restart: unless-stopped
     ports:
       - "127.0.0.1:3002:3002"
     env_file:
       - .env
     depends_on:
-      surfagent-db:
+      surfababe-db:
         condition: service_healthy
     volumes:
       - ./auth:/app/auth
@@ -32,16 +32,16 @@ services:
     networks:
       - coolify
 
-  surfagent-db:
+  surfababe-db:
     image: postgres:17-alpine
-    container_name: surfagent-db
+    container_name: surfababe-db
     restart: unless-stopped
     environment:
       POSTGRES_USER: surfababe
       POSTGRES_PASSWORD: surfababe_secret_2026
       POSTGRES_DB: surfababe
     volumes:
-      - surfagent-pgdata:/var/lib/postgresql/data
+      - surfababe-pgdata:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U surfababe"]
       interval: 5s
@@ -51,7 +51,7 @@ services:
       - coolify
 
 volumes:
-  surfagent-pgdata:
+  surfababe-pgdata:
 
 networks:
   coolify:

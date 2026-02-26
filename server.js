@@ -1,5 +1,5 @@
 /**
- * server.js — Simplified HTTP API for SurfAgent
+ * server.js — Simplified HTTP API for SurfaBabe
  *
  * Endpoints:
  * - GET /health — health check
@@ -38,7 +38,7 @@ export function startServer(sockRef, sendResponse) {
     const dbStatus = await dbHealthCheck();
     res.json({
       status: 'ok',
-      bot: 'SurfAgent',
+      bot: 'SurfaBabe',
       uptime: Math.floor(process.uptime()),
       db: dbStatus,
     });

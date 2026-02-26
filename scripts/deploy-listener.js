@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * deploy-listener.js — GitHub webhook receiver for SurfAgent auto-deploy
+ * deploy-listener.js — GitHub webhook receiver for SurfaBabe auto-deploy
  * Listens on port 9002, validates GitHub signature, triggers deploy.sh
  */
 
@@ -10,7 +10,7 @@ import { exec } from 'child_process';
 
 const PORT = 9002;
 const SECRET = '31c2427fb8c00ad6564ea3d1e99ed7375f172bca';
-const DEPLOY_SCRIPT = '/root/projects/SurfAgent/scripts/deploy.sh';
+const DEPLOY_SCRIPT = '/root/projects/SurfaBabe/scripts/deploy.sh';
 
 const server = http.createServer((req, res) => {
   if (req.method !== 'POST') {
@@ -52,5 +52,5 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(PORT, '0.0.0.0', () => {
-  console.log(`SurfAgent deploy webhook listening on 127.0.0.1:${PORT}`);
+  console.log(`SurfaBabe deploy webhook listening on 127.0.0.1:${PORT}`);
 });

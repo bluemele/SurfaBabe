@@ -1,5 +1,5 @@
 /**
- * SurfAgent — WhatsApp AI Customer Service Agent for SurfaBabe Wellness
+ * SurfaBabe — WhatsApp AI Customer Service Agent for SurfaBabe Wellness
  *
  * Forked from Overlord, stripped to customer service essentials:
  * - Baileys WhatsApp connection
@@ -1501,7 +1501,7 @@ process.on('SIGTERM', () => { console.log('\nBye!'); process.exit(0); });
 // ============================================================
 console.log(`
 ╔═══════════════════════════════════════════════╗
-║  SurfAgent v1.0 — SurfaBabe Wellness         ║
+║  SurfaBabe v1.0 — SurfaBabe Wellness         ║
 ║                                               ║
 ║  Natural Skincare & Cleaning Products         ║
 ║  WhatsApp AI Customer Service                 ║

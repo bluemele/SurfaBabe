@@ -1,5 +1,5 @@
 /**
- * scheduler.js — Simplified scheduler for SurfAgent (reminders only)
+ * scheduler.js — Simplified scheduler for SurfaBabe (reminders only)
  */
 
 import cron from 'node-cron';

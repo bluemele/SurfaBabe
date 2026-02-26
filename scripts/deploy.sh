@@ -1,10 +1,10 @@
 #!/bin/bash
-# deploy.sh — Auto-deploy SurfAgent on git push
-# Called by GitHub webhook via deploy-listener.sh
+# deploy.sh — Auto-deploy SurfaBabe on git push
+# Called by GitHub webhook via deploy-listener.js
 set -e
 
-PROJECT_DIR="/root/projects/SurfAgent"
-LOG="/root/projects/SurfAgent/logs/deploy.log"
+PROJECT_DIR="/root/projects/SurfaBabe"
+LOG="/root/projects/SurfaBabe/logs/deploy.log"
 
 echo "$(date -Is) — Deploy triggered" >> "$LOG"
 

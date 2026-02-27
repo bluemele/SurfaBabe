@@ -32,7 +32,7 @@ import QRCode from 'qrcode';
 
 import { startServer } from './server.js';
 import { startScheduler, addReminder, removeReminder, listReminders } from './scheduler.js';
-import { loadProducts, loadFAQ, loadPolicies, formatCatalog } from './knowledge.js';
+import { loadProducts, loadFAQ, loadPolicies, loadVoice, formatCatalog } from './knowledge.js';
 import { getOrderState, startOrder, cancelOrder, viewCart } from './orders.js';
 import {
   initDb, upsertCustomer, logInteraction,
@@ -678,6 +678,7 @@ async function askClaude(chatJid, senderJid, parsed, mediaResult) {
   const catalog = formatCatalog();
   const faq = loadFAQ();
   const policies = loadPolicies();
+  const voice = loadVoice();
 
   // Check order state
   const orderState = getOrderState(chatJid);
@@ -689,6 +690,12 @@ async function askClaude(chatJid, senderJid, parsed, mediaResult) {
   prompt.push(`Time: ${now()}`);
   prompt.push(`Chat: ${isGroup(chatJid) ? 'Group' : 'DM'} | Sender: ${senderNumber(senderJid)}${isAdminUser ? ' (OWNER/ADMIN - Ailie)' : ' (Customer)'}`);
   prompt.push('');
+
+  if (voice) {
+    prompt.push(`[VOICE GUIDE — How Ailie handles customers. Mirror this style.]`);
+    prompt.push(voice);
+    prompt.push('');
+  }
 
   prompt.push(`[PRODUCT CATALOG]`);
   prompt.push(catalog);

@@ -13,6 +13,7 @@ const KNOWLEDGE_DIR = process.env.KNOWLEDGE_DIR || './knowledge';
 let productsCache = null;
 let faqCache = null;
 let policiesCache = null;
+let voiceCache = null;
 let lastLoad = 0;
 
 const RELOAD_INTERVAL = 60_000; // Reload every 60 seconds max
@@ -47,6 +48,13 @@ function reloadIfNeeded() {
   } catch {
     if (!policiesCache) policiesCache = '';
   }
+
+  // Voice guide
+  try {
+    voiceCache = fs.readFileSync(path.join(KNOWLEDGE_DIR, 'voice.md'), 'utf-8');
+  } catch {
+    if (!voiceCache) voiceCache = '';
+  }
 }
 
 // Initial load
@@ -65,6 +73,11 @@ export function loadFAQ() {
 export function loadPolicies() {
   reloadIfNeeded();
   return policiesCache || '';
+}
+
+export function loadVoice() {
+  reloadIfNeeded();
+  return voiceCache || '';
 }
 
 export function formatCatalog() {

@@ -1,17 +1,11 @@
 FROM node:20-bookworm-slim
 
-# Install system dependencies: git, Python 3 (for TTS)
+# Install system dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     ca-certificates \
     curl \
-    python3 \
-    python3-pip \
-    python3-venv \
     && rm -rf /var/lib/apt/lists/*
-
-# Install edge-tts for voice notes
-RUN pip3 install --no-cache-dir --break-system-packages edge-tts
 
 # Install Claude CLI globally
 RUN npm install -g @anthropic-ai/claude-code

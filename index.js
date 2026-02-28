@@ -28,7 +28,6 @@ import path from 'path';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import crypto from 'crypto';
 import qrcode from 'qrcode-terminal';
-import QRCode from 'qrcode';
 
 import { startServer } from './server.js';
 import { startScheduler, addReminder, removeReminder, listReminders } from './scheduler.js';
@@ -308,33 +307,6 @@ async function transcribeAudio(filePath) {
     return text.trim() || null;
   } catch (err) {
     logger.error({ err }, 'Transcription failed');
-    return null;
-  }
-}
-
-// ============================================================
-// QR CODE GENERATION
-// ============================================================
-
-async function generateQR(text) {
-  return await QRCode.toBuffer(text, { type: 'png', width: 400, margin: 2 });
-}
-
-// ============================================================
-// TEXT-TO-SPEECH
-// ============================================================
-
-async function generateTTS(text, voice = 'en-US-JennyNeural') {
-  const outFile = `/tmp/tts_${Date.now()}.mp3`;
-  try {
-    await new Promise((resolve, reject) => {
-      const proc = spawn('python3', ['/app/scripts/tts.py', text, outFile, '--voice', voice], { timeout: 30000 });
-      proc.on('close', (code) => code === 0 ? resolve() : reject(new Error(`TTS exit code ${code}`)));
-      proc.on('error', reject);
-    });
-    return outFile;
-  } catch (err) {
-    logger.error({ err }, 'TTS generation failed');
     return null;
   }
 }
@@ -1018,39 +990,6 @@ async function handleSpecialCommand(text, chatJid, senderJid, sockRef) {
     return `Recent context:\n\n${conversationContext.format(chatJid, 10)}`;
   }
 
-  // /qr — QR code
-  if (cmd.startsWith('/qr ')) {
-    const content = fullText.substring(4).trim();
-    if (!content) return 'Usage: /qr <text or URL>';
-    try {
-      const buffer = await generateQR(content);
-      await sockRef.sock.sendMessage(chatJid, { image: buffer, caption: `QR: ${content}` });
-      return null;
-    } catch (err) {
-      return `QR generation failed: ${err.message}`;
-    }
-  }
-
-  // /tts — text to speech
-  if (cmd.startsWith('/tts ') || cmd.startsWith('/say ')) {
-    const ttsText = fullText.substring(cmd.startsWith('/tts') ? 5 : 5).trim();
-    if (!ttsText) return 'Usage: /tts <text to speak>';
-    try {
-      const audioFile = await generateTTS(ttsText);
-      if (!audioFile) return 'TTS generation failed.';
-      const buffer = await fs.readFile(audioFile);
-      await sockRef.sock.sendMessage(chatJid, {
-        audio: buffer,
-        mimetype: 'audio/mpeg',
-        ptt: true,
-      });
-      await fs.unlink(audioFile).catch(() => {});
-      return null;
-    } catch (err) {
-      return `TTS failed: ${err.message}`;
-    }
-  }
-
   // /remind — reminders (admin only)
   if (cmd.startsWith('/remind ') && isAdmin(senderJid)) {
     const rest = fullText.substring(8).trim();
@@ -1290,8 +1229,6 @@ async function handleSpecialCommand(text, chatJid, senderJid, sockRef) {
         '/mode all|silent — Toggle responses',
         '/remind <time> <msg> — Set reminder',
         '/reminders — View reminders',
-        '/qr <text> — Generate QR code',
-        '/tts <text> — Text to voice note',
         '',
         'CRM Commands:',
         '/stats — Dashboard summary',

@@ -100,19 +100,3 @@ export function formatCatalog() {
   }).join('\n\n');
 }
 
-export function formatForCustomer(productId) {
-  const products = loadProducts();
-  const p = products.find(prod => prod.id === productId || prod.id === parseInt(productId));
-  if (!p) return null;
-
-  const price = p.price ? `${p.price.toLocaleString()}₫` : 'Ask for pricing';
-  const lines = [
-    `*${p.name}*`,
-  ];
-  if (p.nameVi) lines.push(p.nameVi);
-  lines.push(`Price: ${price}`);
-  if (p.size) lines.push(`Size: ${p.size}`);
-  if (p.description) lines.push(`\n${p.description}`);
-  if (p.bestSeller) lines.push('\n⭐ Best Seller');
-  return lines.join('\n');
-}

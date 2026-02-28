@@ -184,23 +184,6 @@ export async function logInteraction(customerId, type, summary, metadata) {
   );
 }
 
-// ---- Invoice helpers ----
-
-function generateInvoiceNumber() {
-  const ts = Date.now().toString(36);
-  const rand = crypto.randomBytes(3).toString('hex');
-  return `INV-${ts}-${rand}`;
-}
-
-export async function createInvoice(orderId, customerId, amount, dueDate) {
-  const invoiceNumber = generateInvoiceNumber();
-  const { rows } = await query(
-    `INSERT INTO invoices (invoice_number, order_id, customer_id, amount, status, due_date)
-     VALUES ($1, $2, $3, $4, 'draft', $5) RETURNING *`,
-    [invoiceNumber, orderId, customerId, amount, dueDate || null]
-  );
-  return rows[0];
-}
 
 // ---- CRM query helpers (admin commands) ----
 

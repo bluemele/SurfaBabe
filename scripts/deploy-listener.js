@@ -9,7 +9,7 @@ import crypto from 'crypto';
 import { exec } from 'child_process';
 
 const PORT = 9002;
-const SECRET = '31c2427fb8c00ad6564ea3d1e99ed7375f172bca';
+const SECRET = process.env.DEPLOY_WEBHOOK_SECRET || '';
 const DEPLOY_SCRIPT = '/root/projects/SurfaBabe/scripts/deploy.sh';
 
 const server = http.createServer((req, res) => {
@@ -22,11 +22,17 @@ const server = http.createServer((req, res) => {
   let body = '';
   req.on('data', chunk => { body += chunk; });
   req.on('end', () => {
-    // Validate GitHub signature
+    // Validate GitHub signature (required when secret is configured)
     const sig = req.headers['x-hub-signature-256'];
-    if (SECRET && sig) {
+    if (SECRET) {
+      if (!sig) {
+        console.log(`${new Date().toISOString()} — Missing signature from ${req.socket.remoteAddress}`);
+        res.writeHead(401);
+        res.end('Missing signature');
+        return;
+      }
       const expected = 'sha256=' + crypto.createHmac('sha256', SECRET).update(body).digest('hex');
-      if (sig !== expected) {
+      if (!crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(expected))) {
         console.log(`${new Date().toISOString()} — Bad signature from ${req.socket.remoteAddress}`);
         res.writeHead(401);
         res.end('Bad signature');

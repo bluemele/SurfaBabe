@@ -427,6 +427,9 @@
   </footer>
 
   <script>
+    // Homepage has announcement bar + nav — increase scroll-padding-top on the root scroller
+    document.documentElement.style.scrollPaddingTop = '120px';
+
     // Sticky nav on scroll (nav already visible, just track for potential adjustments)
     window.addEventListener('scroll', () => {
       const scrolled = window.scrollY > 50;

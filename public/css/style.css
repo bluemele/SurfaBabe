@@ -35,9 +35,6 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
 }
-.has-announcement {
-  scroll-padding-top: 120px;
-}
 
 body {
   font-family: 'Inter', -apple-system, sans-serif;

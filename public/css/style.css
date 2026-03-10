@@ -238,7 +238,7 @@ a { text-decoration: none; color: inherit; }
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to right, rgba(255,255,255,0.65) 40%, rgba(255,255,255,0.1) 100%);
+  background: linear-gradient(to right, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0) 100%);
 }
 .hero-inner {
   position: relative;
@@ -255,13 +255,15 @@ a { text-decoration: none; color: inherit; }
   color: var(--teal-deep);
   margin-bottom: 16px;
   line-height: 1.15;
+  text-shadow: 0 1px 8px rgba(255,255,255,0.6);
 }
 .hero-sub {
   font-size: 1.05rem;
   color: var(--text);
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: 32px;
   letter-spacing: 0.02em;
+  text-shadow: 0 1px 6px rgba(255,255,255,0.5);
 }
 .hero-btns {
   display: flex;

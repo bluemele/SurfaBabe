@@ -732,67 +732,6 @@ a { text-decoration: none; color: inherit; }
   line-height: 1.7;
 }
 
-/* ===== Contact ===== */
-.contact {
-  padding: 80px 0;
-  text-align: center;
-  background: var(--warm);
-}
-.contact h2 {
-  font-size: 2rem;
-  margin-bottom: 12px;
-}
-.contact > .container > p {
-  color: var(--text-light);
-  font-size: 1rem;
-  max-width: 480px;
-  margin: 0 auto 40px;
-}
-.contact-channels {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-  margin-bottom: 32px;
-}
-.contact-channel {
-  background: var(--white);
-  border-radius: var(--radius);
-  padding: 20px 28px;
-  box-shadow: var(--shadow);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  min-width: 140px;
-  transition: var(--transition);
-}
-.contact-channel:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-hover);
-}
-.contact-channel-icon { font-size: 1.8rem; }
-.contact-channel-label {
-  font-size: 0.78rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--text-light);
-}
-.contact-channel-value {
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: var(--teal-dark);
-}
-.contact-info {
-  margin-top: 24px;
-}
-.contact-info p {
-  font-size: 0.88rem;
-  color: var(--text-light);
-  margin-bottom: 4px;
-}
-
 /* ===== Footer ===== */
 .footer {
   background: var(--teal-footer);

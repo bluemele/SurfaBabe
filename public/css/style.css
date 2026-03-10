@@ -33,7 +33,10 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 110px;
+  scroll-padding-top: 80px;
+}
+.has-announcement {
+  scroll-padding-top: 120px;
 }
 
 body {
@@ -125,6 +128,10 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* ===== Announcement Bar ===== */
+.has-announcement .nav {
+  top: 40px;
+}
+
 .announcement-bar {
   background: var(--announcement-bg);
   color: var(--text);
@@ -147,7 +154,7 @@ a { text-decoration: none; color: inherit; }
 /* ===== Navigation ===== */
 .nav {
   position: fixed;
-  top: 40px;
+  top: 0;
   left: 0;
   right: 0;
   z-index: 100;

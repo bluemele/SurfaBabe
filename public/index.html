@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="/css/style.css">
   <link rel="icon" type="image/png" href="/images/logo.png">
 </head>
-<body>
+<body class="has-announcement">
 
   <!-- Announcement Bar -->
   <div class="announcement-bar">
@@ -398,10 +398,11 @@
     <div class="footer-newsletter">
       <h3>Join Our Community!</h3>
       <p>Get natural living tips, new product alerts, and exclusive offers.</p>
-      <form class="newsletter-form" onsubmit="return false;">
-        <input type="email" placeholder="Your email address">
+      <form class="newsletter-form" onsubmit="handleNewsletter(event)">
+        <input type="email" id="newsletter-email" placeholder="Your email address" required>
         <button type="submit" class="btn btn-primary">Subscribe</button>
       </form>
+      <p id="newsletter-msg" style="margin-top:12px;font-size:0.85rem;opacity:0;transition:opacity 0.3s"></p>
     </div>
     <div class="footer-main">
       <div class="footer-inner">
@@ -445,6 +446,20 @@
         }
       });
     });
+
+    // Newsletter — send email via WhatsApp since no backend
+    function handleNewsletter(e) {
+      e.preventDefault();
+      const email = document.getElementById('newsletter-email').value.trim();
+      const msg = document.getElementById('newsletter-msg');
+      if (!email) return;
+      const waText = encodeURIComponent('Hi! I\'d like to subscribe to SurfaBabe updates. My email: ' + email);
+      window.open('https://wa.me/84392648332?text=' + waText, '_blank');
+      document.getElementById('newsletter-email').value = '';
+      msg.textContent = 'Thanks! We\'ll add you to our list.';
+      msg.style.opacity = '1';
+      setTimeout(() => { msg.style.opacity = '0'; }, 4000);
+    }
 
     // FAQ category filter
     function filterFaq(btn, cat) {

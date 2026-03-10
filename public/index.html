@@ -4,42 +4,49 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SurfaBabe Wellness | Natural Every-Day Products</title>
-  <meta name="description" content="Natural skincare and cleaning products handmade in Vietnam. Tallow cream, mineral sunscreen, surface cleaners, and laundry detergent. Clean ingredients, no synthetics.">
+  <meta name="description" content="Natural skincare and cleaning products handmade in Vietnam. Tallow cream, mineral sunscreen, surface cleaners, and laundry detergent. Natural, effective, affordable.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>">
+  <link rel="icon" type="image/png" href="/images/logo.png">
 </head>
 <body>
+
+  <!-- Announcement Bar -->
+  <div class="announcement-bar">
+    Explore SurfaBabe's Natural Products <a href="#products">Now!</a>
+  </div>
 
   <!-- Navigation -->
   <nav class="nav" id="nav">
     <div class="nav-inner">
-      <a href="/" class="nav-logo">SurfaBabe</a>
+      <a href="/" class="nav-logo"><img src="/images/logo.png" alt="SurfaBabe" class="nav-logo-img"></a>
       <button class="nav-toggle" aria-label="Menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">
         <span></span><span></span><span></span>
       </button>
       <div class="nav-links">
-        <a href="#about">Our Story</a>
+        <a href="/">Home</a>
+        <a href="/buy.html">Buy Now</a>
         <a href="#products">Products</a>
-        <a href="/faq.html">FAQ</a>
-        <a href="/buy.html">How to Order</a>
+        <a href="#about">Our Story</a>
+        <a href="#testimonials">Testimonials</a>
         <a href="#contact">Contact</a>
-        <a href="https://wa.me/84392648332" class="nav-cta" target="_blank" rel="noopener">Order on WhatsApp</a>
+        <a href="/faq.html">FAQ</a>
+        <a href="https://wa.me/84392648332" class="nav-cta" target="_blank" rel="noopener">WhatsApp Us</a>
       </div>
     </div>
   </nav>
 
   <!-- Hero -->
   <header class="hero">
+    <div class="hero-bg"></div>
     <div class="hero-inner">
-      <p class="hero-tag">Natural Every-Day Products</p>
-      <h1>Clean Ingredients.<br>Real Results.</h1>
-      <p class="hero-sub">Handmade skincare and cleaning products from Vietnam. No synthetics, no harsh chemicals — just nature doing its thing.</p>
+      <h1>Natural Solutions for<br>Everyday Living</h1>
+      <p class="hero-sub">Natural | Effective | Affordable</p>
       <div class="hero-btns">
-        <a href="#products" class="btn btn-primary">Shop Products</a>
-        <a href="https://wa.me/84392648332" class="btn btn-outline" target="_blank" rel="noopener">Chat on WhatsApp</a>
+        <a href="#products" class="btn btn-primary">Shop Now</a>
+        <a href="https://wa.me/84392648332" class="btn btn-outline-white" target="_blank" rel="noopener">Chat on WhatsApp</a>
       </div>
     </div>
   </header>
@@ -70,18 +77,6 @@
     </div>
   </section>
 
-  <!-- About -->
-  <section class="about" id="about">
-    <div class="container">
-      <div class="about-content">
-        <h2>Our Story</h2>
-        <p>SurfaBabe Wellness was born from a simple problem: finding natural products that actually work without costing a fortune.</p>
-        <p>Ailie grew up surfing and loving the ocean in Hawaii. During the pandemic, her family went on an adventure — sailing through the Caribbean, Colombia, and Panama before settling in Vietnam. Throughout their travels, they struggled to find good, natural products.</p>
-        <p>The breaking point? A terrible chemical burn from a conventional laundry detergent. That's when Ailie decided to make her own — starting with natural laundry soap and expanding to skincare. Every SurfaBabe product is handmade with clean ingredients that are effective, affordable, and gentle on both you and the planet.</p>
-      </div>
-    </div>
-  </section>
-
   <!-- Products -->
   <section class="products" id="products">
     <div class="container">
@@ -93,15 +88,15 @@
       <div class="product-grid">
 
         <a href="/product/tallow-cream.html" class="product-card best-seller">
-          <div class="badge">Best Seller</div>
+          <div class="badge">Best Seller!</div>
           <img src="/images/products/tallow-cream.png" alt="Natural Whipped Tallow Cream" loading="lazy">
           <div class="product-info">
-            <h4>Natural Whipped Tallow Cream</h4>
+            <h4>Natural Whipped Tallow Cream (Moisturizer)</h4>
             <p class="product-desc">Deeply nourishing moisturizer made with grass-fed tallow and jojoba oil. Unscented, non-greasy, safe for all skin types including sensitive skin.</p>
             <p class="product-meta">30ml · Grass-fed tallow, jojoba oil</p>
             <div class="product-footer">
               <span class="price">180,000₫</span>
-              <span class="btn btn-sm">View Details</span>
+              <span class="btn btn-sm btn-teal">View Details</span>
             </div>
           </div>
         </a>
@@ -115,7 +110,7 @@
             <p class="product-meta">60g · Cocoa butter, coconut oil, non-nano zinc oxide, beeswax</p>
             <div class="product-footer">
               <span class="price">200,000₫</span>
-              <span class="btn btn-sm">View Details</span>
+              <span class="btn btn-sm btn-teal">View Details</span>
             </div>
           </div>
         </a>
@@ -129,7 +124,7 @@
             <p class="product-meta">60g · Grass-fed tallow, coconut oil, non-nano zinc oxide, beeswax</p>
             <div class="product-footer">
               <span class="price">180,000₫</span>
-              <span class="btn btn-sm">View Details</span>
+              <span class="btn btn-sm btn-teal">View Details</span>
             </div>
           </div>
         </a>
@@ -149,7 +144,7 @@
             <p class="product-meta">35oz (1kg) powder · Baking soda, washing soda, lavender essential oil</p>
             <div class="product-footer">
               <span class="price">200,000₫</span>
-              <span class="btn btn-sm">View Details</span>
+              <span class="btn btn-sm btn-teal">View Details</span>
             </div>
           </div>
         </a>
@@ -163,7 +158,7 @@
             <p class="product-meta">35oz (1kg) powder · Baking soda, washing soda</p>
             <div class="product-footer">
               <span class="price">200,000₫</span>
-              <span class="btn btn-sm">View Details</span>
+              <span class="btn btn-sm btn-teal">View Details</span>
             </div>
           </div>
         </a>
@@ -177,7 +172,7 @@
             <p class="product-meta">35oz (1kg) powder · Baking soda, washing soda, sea salt, epsom salt, lavender oil</p>
             <div class="product-footer">
               <span class="price">300,000₫</span>
-              <span class="btn btn-sm">View Details</span>
+              <span class="btn btn-sm btn-teal">View Details</span>
             </div>
           </div>
         </a>
@@ -191,7 +186,7 @@
             <p class="product-meta">35oz (1kg) powder · Baking soda, washing soda, sea salt, epsom salt</p>
             <div class="product-footer">
               <span class="price">300,000₫</span>
-              <span class="btn btn-sm">View Details</span>
+              <span class="btn btn-sm btn-teal">View Details</span>
             </div>
           </div>
         </a>
@@ -200,57 +195,196 @@
     </div>
   </section>
 
-  <!-- FAQ Preview -->
-  <section class="faq" id="faq">
+  <!-- Our Story -->
+  <section class="about" id="about">
     <div class="container">
-      <h2>Frequently Asked Questions</h2>
-      <div class="faq-grid">
-
-        <details class="faq-item">
-          <summary>What is tallow and why use it in skincare?</summary>
-          <p>Tallow is rendered beef fat from grass-fed cattle. It's been used for centuries in skincare because it's rich in vitamins A, D, E, K and fatty acids that closely match human skin's natural oils. It absorbs beautifully and deeply nourishes.</p>
-        </details>
-
-        <details class="faq-item">
-          <summary>What's the difference between the 2 sunscreens?</summary>
-          <p>The main difference is the base ingredient: Tallow vs Cocoa Butter. The Tallow (ACTIVE) is great for active people because it's more water and sweat resistant. The Cocoa Butter (Plant-Based) is for those who prefer plant-based options or are less active.</p>
-        </details>
-
-        <details class="faq-item">
-          <summary>Are your sunscreens reef-safe?</summary>
-          <p>Yes! Both sunscreens use non-nano zinc oxide and are completely reef-safe and biodegradable. They provide broad-spectrum UVA/UVB protection. Reapply every 2 hours or after swimming.</p>
-        </details>
-
-        <details class="faq-item">
-          <summary>Does the surface cleaner disinfect?</summary>
-          <p>It does NOT disinfect surfaces, but cleans well against dirt and grease. It has a pH of about 9-10 when mixed, making it alkaline and effective for everyday cleaning. For disinfecting, use a separate product.</p>
-        </details>
-
-        <details class="faq-item">
-          <summary>How do I order?</summary>
-          <p>Message us on WhatsApp (+84 39 264 8332) or Zalo with what you'd like! We accept bank transfer (Vietnamese banks), MoMo, and cash on delivery in the HCMC area.</p>
-        </details>
-
-        <details class="faq-item">
-          <summary>Do you deliver across Vietnam?</summary>
-          <p>Yes! Ho Chi Minh City: 1-2 days. Major cities (Hanoi, Da Nang, etc.): 2-4 days. Other areas: 3-7 business days.</p>
-        </details>
-
-      </div>
-      <div style="text-align:center; margin-top:24px;">
-        <a href="/faq.html" class="btn btn-outline">See All 40+ FAQs</a>
+      <div class="about-inner">
+        <div class="about-text">
+          <p class="about-eyebrow" style="font-family:'Inter',sans-serif;font-size:0.8rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--teal-dark);margin-bottom:8px;">SurfaBabe's Story</p>
+          <h3>We believe in creating products that are always Natural, Effective, and Affordable.</h3>
+          <p>Hi, I'm Ailie, the founder of SurfaBabe. My story starts in Hawaii, where I grew up surfing and loving the ocean.</p>
+          <p>During the pandemic, my family went on a big adventure. We sold everything and lived on a boat, sailing through the Caribbean, Colombia, and Panama. The big moment came when I got terrible chemical burns from a laundry detergent we bought at the store — that's when I decided to make my own Natural Laundry Soap, and SurfaBabe was born!</p>
+          <img src="/images/story/burn.jpg" alt="Chemical burn from laundry detergent" loading="lazy" style="width:100%;max-width:320px;border-radius:12px;margin:8px 0 16px;box-shadow:0 2px 12px rgba(0,0,0,0.1)">
+          <p>We then moved to Vietnam, where throughout our travels, we always tried to live healthily but had trouble finding good, natural products that worked well and didn't cost too much. One day we made our own natural sunscreen for a school project — and it worked better than store-bought ones, even during long surf sessions.</p>
+          <a href="#products" class="btn btn-primary" style="margin-top:8px;">Shop Now</a>
+        </div>
+        <div class="about-images">
+          <img src="/images/story/ailie-beach.png" alt="Ailie holding SurfaBabe sunscreen at the beach" loading="lazy">
+          <img src="/images/story/ailie.jpg" alt="Ailie, founder of SurfaBabe" loading="lazy">
+          <img src="/images/story/beach-apply.jpg" alt="Applying SurfaBabe sunscreen at the beach" loading="lazy">
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Contact / CTA -->
+  <!-- Our Happy Customers -->
+  <section class="customers" id="testimonials">
+    <div class="container">
+      <h2>Our Happy Customers</h2>
+      <p class="section-sub">Check out what our customers are buzzing about!</p>
+      <div class="customer-grid">
+
+        <div class="customer-card">
+          <div class="customer-header">
+            <div class="customer-avatar">😊</div>
+            <div>
+              <div class="customer-name">Emilie S.</div>
+              <div class="customer-handle">@emilies</div>
+            </div>
+          </div>
+          <div class="customer-stars">★★★★★</div>
+          <p class="customer-text">"Super detergent, natural and good smell. Happy to contribute to the health of the planet! Well done!! My cat loves it!"</p>
+          <p class="customer-product">Natural Laundry Detergent</p>
+        </div>
+
+        <div class="customer-card">
+          <div class="customer-header">
+            <div class="customer-avatar">🌊</div>
+            <div>
+              <div class="customer-name">Makosha Spa</div>
+              <div class="customer-handle">@Makosha</div>
+            </div>
+          </div>
+          <div class="customer-stars">★★★★★</div>
+          <p class="customer-text">"We've been using the tallow cream for months — our clients love the texture. It absorbs so well and leaves skin glowing. Can't imagine going back to regular moisturizers!"</p>
+          <p class="customer-product">Whipped Tallow Cream</p>
+        </div>
+
+        <div class="customer-card">
+          <img src="/images/customers/surfers1.jpg" alt="Da Nang Surf School using SurfaBabe sunscreen" loading="lazy" style="width:100%;border-radius:8px;margin-bottom:14px;object-fit:cover;height:180px;">
+          <div class="customer-header">
+            <div class="customer-avatar">🏄</div>
+            <div>
+              <div class="customer-name">Da Nang Surf School</div>
+              <div class="customer-handle">@DaNangSurfSchool</div>
+            </div>
+          </div>
+          <div class="customer-stars">★★★★★</div>
+          <p class="customer-text">"The tallow sunscreen is perfect for our instructors — reef-safe, stays on in the water, and no horrible chemical smell. Our students have been asking where to buy it!"</p>
+          <p class="customer-product">Tallow Mineral Sunscreen</p>
+        </div>
+
+        <div class="customer-card">
+          <div class="customer-header">
+            <div class="customer-avatar">✨</div>
+            <div>
+              <div class="customer-name">Dr. Tyutyuma</div>
+              <div class="customer-handle">@DoctorTyutyuma</div>
+            </div>
+          </div>
+          <div class="customer-stars">★★★★★</div>
+          <p class="customer-text">"As a doctor I'm very particular about what goes on my skin. SurfaBabe's ingredient list is clean — no hidden nasties. The surface cleaner is now the only thing I use at home."</p>
+          <p class="customer-product">Surface Cleaner Lavender</p>
+        </div>
+
+        <div class="customer-card">
+          <div class="customer-header">
+            <div class="customer-avatar">🌿</div>
+            <div>
+              <div class="customer-name">Soul Craft VN</div>
+              <div class="customer-handle">@soulcraftvn</div>
+            </div>
+          </div>
+          <div class="customer-stars">★★★★★</div>
+          <p class="customer-text">"Switched our whole studio to SurfaBabe cleaning products. Smells amazing, works great, and we feel good knowing it's safe for our team and the environment!"</p>
+          <p class="customer-product">Surface Cleaner + Laundry Detergent</p>
+        </div>
+
+        <div class="customer-card">
+          <img src="/images/customers/friends.jpg" alt="Friends holding SurfaBabe sunscreen at beach" loading="lazy" style="width:100%;border-radius:8px;margin-bottom:14px;object-fit:cover;height:180px;">
+          <div class="customer-header">
+            <div class="customer-avatar">💛</div>
+            <div>
+              <div class="customer-name">Julia K.</div>
+              <div class="customer-handle">@heystrangerj</div>
+            </div>
+          </div>
+          <div class="customer-stars">★★★★★</div>
+          <p class="customer-text">"I have super sensitive skin and the cocoa butter sunscreen is the ONLY one that doesn't irritate me. Plus it smells incredible. Ordered 3 more already!"</p>
+          <p class="customer-product">Cocoa Butter Mineral Sunscreen</p>
+        </div>
+
+      </div>
+      <a href="https://www.facebook.com/surfababewellness/reviews" class="btn btn-teal" target="_blank" rel="noopener">See All Reviews</a>
+    </div>
+  </section>
+
+  <!-- FAQ Preview -->
+  <section class="faq" id="faq">
+    <div class="container">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-category-tabs">
+        <button class="faq-cat-btn active" onclick="filterFaq(this, 'all')">All</button>
+        <button class="faq-cat-btn" onclick="filterFaq(this, 'sunscreen')">Sunscreen</button>
+        <button class="faq-cat-btn" onclick="filterFaq(this, 'tallow')">Tallow Cream</button>
+        <button class="faq-cat-btn" onclick="filterFaq(this, 'cleaner')">Surface Cleaner</button>
+        <button class="faq-cat-btn" onclick="filterFaq(this, 'laundry')">Laundry Detergent</button>
+      </div>
+      <div class="faq-grid" id="faqGrid">
+
+        <details class="faq-item" data-cat="tallow">
+          <summary>What is tallow and why use it in skincare?</summary>
+          <p>Tallow is rendered beef fat from grass-fed cattle. It's been used for centuries in skincare because it's rich in vitamins A, D, E, K and fatty acids that closely match human skin's natural oils. It absorbs beautifully and deeply nourishes.</p>
+        </details>
+
+        <details class="faq-item" data-cat="sunscreen">
+          <summary>What's the difference between the 2 sunscreens?</summary>
+          <p>The main difference is the base ingredient: Tallow vs Cocoa Butter. The Tallow (ACTIVE) is great for active people because it's more water and sweat resistant. The Cocoa Butter (Plant-Based) is for those who prefer plant-based options or are less active.</p>
+        </details>
+
+        <details class="faq-item" data-cat="sunscreen">
+          <summary>Are your sunscreens reef-safe?</summary>
+          <p>Yes! Both sunscreens use non-nano zinc oxide and are completely reef-safe and biodegradable. They provide broad-spectrum UVA/UVB protection. Reapply every 2 hours or after swimming.</p>
+        </details>
+
+        <details class="faq-item" data-cat="cleaner">
+          <summary>Does the surface cleaner disinfect?</summary>
+          <p>It does NOT disinfect surfaces, but cleans well against dirt and grease. It has a pH of about 9-10 when mixed, making it alkaline and effective for everyday cleaning. For disinfecting, use a separate product.</p>
+        </details>
+
+        <details class="faq-item" data-cat="laundry">
+          <summary>How much laundry detergent do I use per load?</summary>
+          <p>Just 1 tablespoon per load! It's highly concentrated so a little goes a long way. One 1kg bag lasts 65+ loads. Safe for all washing machines including HE machines.</p>
+        </details>
+
+        <details class="faq-item" data-cat="all">
+          <summary>How do I order?</summary>
+          <p>Message us on WhatsApp or Zalo (+84 39 264 8332) with what you'd like! We accept bank transfer (Vietnamese banks), MoMo, and cash on delivery in the HCMC area.</p>
+        </details>
+
+      </div>
+      <div style="text-align:center; margin-top:28px;">
+        <a href="/faq.html" class="btn btn-outline" style="border-color:rgba(255,255,255,0.4);color:rgba(255,255,255,0.85);">See All 40+ FAQs</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
   <section class="contact" id="contact">
     <div class="container">
-      <h2>Ready to Try Natural?</h2>
-      <p>Message us on WhatsApp to order, ask questions, or just say hi. We'd love to hear from you!</p>
-      <div class="contact-btns">
-        <a href="https://wa.me/84392648332" class="btn btn-primary btn-lg" target="_blank" rel="noopener">Chat on WhatsApp</a>
-        <a href="mailto:uptoyou.wellness@gmail.com" class="btn btn-outline btn-lg">Email Us</a>
+      <h2>Contact Us</h2>
+      <p>We'd love to hear from you — reach out on any of these channels!</p>
+      <div class="contact-channels">
+        <a href="https://zalo.me/84392648332" class="contact-channel" target="_blank" rel="noopener">
+          <span class="contact-channel-icon">💬</span>
+          <span class="contact-channel-label">Zalo</span>
+          <span class="contact-channel-value">+84 39 264 8332</span>
+        </a>
+        <a href="https://wa.me/84392648332" class="contact-channel" target="_blank" rel="noopener">
+          <span class="contact-channel-icon">📱</span>
+          <span class="contact-channel-label">WhatsApp</span>
+          <span class="contact-channel-value">+84 39 264 8332</span>
+        </a>
+        <a href="https://www.facebook.com/surfababewellness" class="contact-channel" target="_blank" rel="noopener">
+          <span class="contact-channel-icon">📘</span>
+          <span class="contact-channel-label">Facebook</span>
+          <span class="contact-channel-value">SurfaBabe</span>
+        </a>
+        <a href="https://www.instagram.com/surfababe.wellness/" class="contact-channel" target="_blank" rel="noopener">
+          <span class="contact-channel-icon">📸</span>
+          <span class="contact-channel-label">Instagram</span>
+          <span class="contact-channel-value">@surfababe.wellness</span>
+        </a>
       </div>
       <div class="contact-info">
         <p>uptoyou.wellness@gmail.com</p>
@@ -261,7 +395,15 @@
 
   <!-- Footer -->
   <footer class="footer">
-    <div class="container">
+    <div class="footer-newsletter">
+      <h3>Join Our Community!</h3>
+      <p>Get natural living tips, new product alerts, and exclusive offers.</p>
+      <form class="newsletter-form" onsubmit="return false;">
+        <input type="email" placeholder="Your email address">
+        <button type="submit" class="btn btn-primary">Subscribe</button>
+      </form>
+    </div>
+    <div class="footer-main">
       <div class="footer-inner">
         <div class="footer-brand">
           <span class="footer-logo">SurfaBabe</span>
@@ -278,16 +420,21 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2026 SurfaBabe Wellness. All rights reserved.</p>
+        <p>&copy; 2026 SurfaBabe Wellness. All Rights Reserved.</p>
       </div>
     </div>
   </footer>
 
-  <!-- Sticky nav on scroll -->
   <script>
+    // Sticky nav on scroll (nav already visible, just track for potential adjustments)
     window.addEventListener('scroll', () => {
-      document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
+      const scrolled = window.scrollY > 50;
+      document.getElementById('nav').style.boxShadow = scrolled
+        ? '0 2px 16px rgba(0,0,0,0.1)'
+        : '0 1px 8px rgba(0,0,0,0.07)';
     });
+
+    // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(a => {
       a.addEventListener('click', e => {
         e.preventDefault();
@@ -298,6 +445,16 @@
         }
       });
     });
+
+    // FAQ category filter
+    function filterFaq(btn, cat) {
+      document.querySelectorAll('.faq-cat-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('#faqGrid .faq-item').forEach(item => {
+        const itemCat = item.dataset.cat;
+        item.style.display = (cat === 'all' || itemCat === cat || itemCat === 'all') ? '' : 'none';
+      });
+    }
   </script>
 
 </body>

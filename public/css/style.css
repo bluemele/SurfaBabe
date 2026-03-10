@@ -219,10 +219,9 @@ a { text-decoration: none; color: inherit; }
 }
 .hero-img {
   width: 100%;
-  height: auto;
-  max-height: 85vh;
+  height: 78vh;
   object-fit: cover;
-  object-position: center 15%;
+  object-position: center 18%;
   display: block;
 }
 
@@ -232,12 +231,12 @@ a { text-decoration: none; color: inherit; }
   padding: 44px 0;
 }
 .product-strip-inner {
-  max-width: 1100px;
+  max-width: 1000px;
   margin: 0 auto;
-  padding: 0 28px;
+  padding: 0 48px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+  gap: 36px;
   align-items: start;
 }
 .strip-item {
@@ -245,7 +244,7 @@ a { text-decoration: none; color: inherit; }
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 12px;
+  gap: 14px;
   transition: var(--transition);
   text-decoration: none;
   color: inherit;
@@ -254,7 +253,6 @@ a { text-decoration: none; color: inherit; }
 .strip-img-wrap {
   position: relative;
   width: 100%;
-  background: var(--white);
   border-radius: var(--radius);
   overflow: hidden;
   aspect-ratio: 1;
@@ -265,7 +263,7 @@ a { text-decoration: none; color: inherit; }
 .strip-img-wrap img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
 }
 .best-seller-strip {
@@ -494,9 +492,9 @@ a { text-decoration: none; color: inherit; }
 }
 .customers-mosaic {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 4px;
-  max-width: 1000px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+  max-width: 1100px;
   margin: 0 auto;
 }
 .customers-mosaic img {
@@ -504,6 +502,7 @@ a { text-decoration: none; color: inherit; }
   aspect-ratio: 1;
   object-fit: cover;
   display: block;
+  border-radius: 4px;
 }
 
 /* ===== Testimonials ===== */

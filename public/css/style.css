@@ -1,16 +1,19 @@
-/* SurfaBabe Wellness — Clean minimal coastal aesthetic matching surfababe.com */
+/* SurfaBabe Wellness — Warm organic coastal aesthetic matching surfababe.com */
 
 :root {
-  --teal: #5CBFC4;
-  --teal-dark: #3A9DA3;
-  --teal-light: #E4F5F6;
-  --teal-deep: #1D7A80;
-  --teal-footer: #2A6E72;
-  --teal-faq: #1e4a4e;
-  --salmon: #D97B64;
-  --salmon-dark: #C0634D;
-  --cream: #faf8f5;
-  --sand: #f0ebe3;
+  --teal: #82CDCE;
+  --teal-dark: #04595E;
+  --teal-light: #EBEFEA;
+  --teal-deep: #04595E;
+  --teal-footer: #04595E;
+  --teal-faq: #04595E;
+  --salmon: #BC7C5A;
+  --salmon-dark: #a5694b;
+  --cream: #F2DBBF;
+  --sand: #E4D2B5;
+  --peach: #F2DBBF;
+  --sage: #EBEFEA;
+  --taupe: #B6A48F;
   --text: #2d2a26;
   --text-light: #6b6560;
   --white: #ffffff;
@@ -29,19 +32,19 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 70px;
+  scroll-padding-top: 120px;
 }
 
 body {
-  font-family: 'Inter', -apple-system, sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: var(--text);
-  background: var(--white);
+  background: var(--peach);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3, h4 {
-  font-family: 'Lora', Georgia, serif;
+  font-family: 'Fraunces', Georgia, serif;
   line-height: 1.25;
 }
 
@@ -66,7 +69,7 @@ a { text-decoration: none; color: inherit; }
   justify-content: center;
   padding: 12px 30px;
   border-radius: var(--radius-pill);
-  font-family: 'Inter', sans-serif;
+  font-family: 'DM Sans', 'Helvetica Neue', Arial, sans-serif;
   font-weight: 500;
   font-size: 0.92rem;
   transition: var(--transition);
@@ -109,7 +112,7 @@ a { text-decoration: none; color: inherit; }
   border-radius: var(--radius-pill);
   font-size: 0.9rem;
   font-weight: 500;
-  font-family: 'Inter', sans-serif;
+  font-family: 'DM Sans', 'Helvetica Neue', Arial, sans-serif;
   cursor: pointer;
   transition: var(--transition);
   display: inline-block;
@@ -125,7 +128,7 @@ a { text-decoration: none; color: inherit; }
   border: none;
   padding: 12px 30px;
   border-radius: var(--radius-pill);
-  font-family: 'Inter', sans-serif;
+  font-family: 'DM Sans', 'Helvetica Neue', Arial, sans-serif;
   font-size: 0.92rem;
   font-weight: 500;
   cursor: pointer;
@@ -144,12 +147,12 @@ a { text-decoration: none; color: inherit; }
 /* ===== Navigation ===== */
 .nav {
   position: fixed;
-  top: 0;
+  top: 47px;
   left: 0;
   right: 0;
   z-index: 100;
-  background: var(--white);
-  box-shadow: 0 1px 8px rgba(0,0,0,0.07);
+  background: var(--sage);
+  box-shadow: 0 1px 8px rgba(0,0,0,0.05);
   transition: var(--transition);
 }
 .nav-inner {
@@ -178,20 +181,20 @@ a { text-decoration: none; color: inherit; }
 .nav-links a {
   font-size: 0.86rem;
   font-weight: 500;
-  color: var(--text);
+  color: var(--teal-dark);
   transition: var(--transition);
   letter-spacing: 0.01em;
 }
-.nav-links a:hover { color: var(--teal-dark); }
+.nav-links a:hover { color: var(--salmon); }
 .nav-cta {
-  background: var(--teal) !important;
+  background: var(--salmon) !important;
   color: var(--white) !important;
   padding: 8px 20px;
   border-radius: var(--radius-pill);
   font-size: 0.83rem !important;
 }
 .nav-cta:hover {
-  background: var(--teal-dark) !important;
+  background: var(--salmon-dark) !important;
   color: var(--white) !important;
 }
 .nav-toggle {
@@ -211,15 +214,37 @@ a { text-decoration: none; color: inherit; }
   transition: var(--transition);
 }
 
+/* ===== Announcement Bar ===== */
+.announcement-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 101;
+  background: var(--teal);
+  text-align: center;
+  padding: 13px 20px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--white);
+  letter-spacing: 0.3px;
+  line-height: 1.3;
+}
+.announcement-bar a {
+  color: var(--white);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
 /* ===== Hero — Full width photo, no text ===== */
 .hero {
-  padding-top: 68px; /* nav height */
+  padding-top: 115px; /* nav height + announcement bar */
   width: 100%;
   line-height: 0;
 }
 .hero-img {
   width: 100%;
-  height: calc(100vh - 68px);
+  height: calc(100vh - 115px);
   object-fit: cover;
   object-position: center 10%;
   display: block;
@@ -227,7 +252,7 @@ a { text-decoration: none; color: inherit; }
 
 /* ===== Product Strip ===== */
 .product-strip {
-  background: #f7f4f0;
+  background: var(--sand);
   padding: 44px 0;
 }
 .product-strip-inner {
@@ -305,8 +330,8 @@ a { text-decoration: none; color: inherit; }
   text-align: center;
 }
 .story-eyebrow {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.72rem;
+  font-family: 'DM Sans', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 0.74rem;
   font-weight: 600;
   letter-spacing: 3px;
   text-transform: uppercase;
@@ -337,7 +362,7 @@ a { text-decoration: none; color: inherit; }
   color: var(--teal-deep);
   padding: 12px 36px;
   border-radius: var(--radius-pill);
-  font-family: 'Inter', sans-serif;
+  font-family: 'DM Sans', 'Helvetica Neue', Arial, sans-serif;
   font-weight: 600;
   font-size: 0.9rem;
   transition: var(--transition);
@@ -350,7 +375,7 @@ a { text-decoration: none; color: inherit; }
 
 /* ===== Story Collage — large scattered photos on white ===== */
 .story-collage {
-  background: var(--white);
+  background: var(--peach);
   padding: 40px 0 0;
   overflow: hidden;
 }
@@ -433,6 +458,9 @@ a { text-decoration: none; color: inherit; }
   background: var(--sand);
   text-align: center;
 }
+.contact .contact-cols {
+  background: var(--peach);
+}
 .contact h2 {
   font-size: 1.8rem;
   margin-bottom: 32px;
@@ -482,7 +510,7 @@ a { text-decoration: none; color: inherit; }
 /* ===== Our Happy Customers ===== */
 .customers {
   padding: 60px 0;
-  background: var(--white);
+  background: var(--sage);
   text-align: center;
 }
 .customers h2 {
@@ -507,7 +535,7 @@ a { text-decoration: none; color: inherit; }
 
 /* ===== Testimonials ===== */
 .testimonials {
-  background: #daeee8;
+  background: var(--peach);
   padding: 60px 24px;
   text-align: center;
 }
@@ -536,7 +564,7 @@ a { text-decoration: none; color: inherit; }
   line-height: 1.75;
   font-style: italic;
   margin-bottom: 12px;
-  font-family: 'Lora', serif;
+  font-family: 'Fraunces', serif;
 }
 .carousel-name {
   font-weight: 600;
@@ -605,7 +633,7 @@ a { text-decoration: none; color: inherit; }
   border-bottom: 2px solid transparent;
   cursor: pointer;
   transition: var(--transition);
-  font-family: 'Inter', sans-serif;
+  font-family: 'DM Sans', 'Helvetica Neue', Arial, sans-serif;
 }
 .faq-tab:hover {
   color: var(--white);
@@ -668,7 +696,7 @@ a { text-decoration: none; color: inherit; }
 /* ===== Newsletter ===== */
 .newsletter {
   padding: 64px 0;
-  background: var(--sand);
+  background: var(--peach);
   text-align: center;
 }
 .newsletter h2 {
@@ -698,7 +726,7 @@ a { text-decoration: none; color: inherit; }
   padding: 13px 22px;
   border-radius: var(--radius-pill);
   border: 1px solid rgba(0,0,0,0.12);
-  font-family: 'Inter', sans-serif;
+  font-family: 'DM Sans', 'Helvetica Neue', Arial, sans-serif;
   font-size: 0.9rem;
   background: var(--white);
   color: var(--text);
@@ -784,7 +812,7 @@ a { text-decoration: none; color: inherit; }
 /* ===== Product Grid (Products listing page) ===== */
 .products {
   padding: 80px 0;
-  background: var(--white);
+  background: var(--peach);
 }
 .products h2 {
   font-size: 2rem;
@@ -866,7 +894,7 @@ a { text-decoration: none; color: inherit; }
   justify-content: space-between;
 }
 .price {
-  font-family: 'Lora', serif;
+  font-family: 'Fraunces', serif;
   font-size: 1.15rem;
   font-weight: 600;
   color: var(--text);
@@ -917,7 +945,7 @@ a { text-decoration: none; color: inherit; }
   margin-bottom: 16px;
 }
 .product-detail-price {
-  font-family: 'Lora', serif;
+  font-family: 'Fraunces', serif;
   font-size: 1.8rem;
   font-weight: 700;
   color: var(--teal-dark);
@@ -990,7 +1018,7 @@ a { text-decoration: none; color: inherit; }
 }
 .related-section {
   padding: 60px 0 80px;
-  background: var(--white);
+  background: var(--peach);
 }
 .related-section h2 {
   font-size: 1.5rem;
@@ -1091,7 +1119,7 @@ a { text-decoration: none; color: inherit; }
   border-radius: 50%;
   background: var(--teal);
   color: var(--white);
-  font-family: 'Lora', serif;
+  font-family: 'Fraunces', serif;
   font-size: 1.15rem;
   font-weight: 700;
   display: flex;
@@ -1170,7 +1198,7 @@ a { text-decoration: none; color: inherit; }
     top: 100%;
     left: 0;
     right: 0;
-    background: rgba(255,255,255,0.98);
+    background: rgba(235,239,234,0.98);
     backdrop-filter: blur(12px);
     flex-direction: column;
     padding: 20px 24px;

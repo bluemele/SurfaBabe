@@ -21,7 +21,10 @@
   <!-- Navigation -->
   <nav class="nav" id="nav">
     <div class="nav-inner">
-      <a href="/" class="nav-logo"><img src="/images/logo.png" alt="SurfaBabe" class="nav-logo-img"></a>
+      <a href="/" class="nav-logo">
+        <img src="/images/logo-icon.png" alt="" class="nav-logo-icon">
+        <img src="/images/logo-text.png" alt="SurfaBabe" class="nav-logo-text">
+      </a>
       <button class="nav-toggle" aria-label="Menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">
         <span></span><span></span><span></span>
       </button>
@@ -33,48 +36,81 @@
         <a href="#testimonials">Testimonials</a>
         <a href="#contact">Contact</a>
         <a href="/faq.html">FAQ</a>
-        <a href="#newsletter" class="nav-cta">Subscribe</a>
+        <a href="#newsletter">Subscribe</a>
       </div>
     </div>
   </nav>
 
-  <!-- Hero — full width photo, zero text overlay -->
+  <!-- Hero — full width photo with centered text overlay -->
   <header class="hero">
     <img src="/images/hero.jpg" alt="Natural sunscreen applied to skin" class="hero-img">
+    <div class="hero-overlay">
+      <p class="hero-heading">Natural Solutions for<br>Everyday Living</p>
+      <p class="hero-sub">Natural | Effective | Affordable</p>
+      <a href="/buy.html" class="hero-btn">Shop Now</a>
+    </div>
   </header>
 
   <!-- Product Strip -->
   <section class="product-strip" id="products">
     <div class="product-strip-inner">
-      <a href="/product/tallow-cream.html" class="strip-item">
-        <div class="strip-img-wrap best-seller-strip">
-          <img src="/images/products/tallow-cream.png" alt="Natural Whipped Tallow Cream" loading="lazy">
-          <span class="strip-badge">Best Seller!</span>
+      <h2 class="products-heading">Products</h2>
+      <div class="product-carousel-wrap">
+        <button class="product-arrow product-prev" aria-label="Previous" onclick="moveProducts(-1)">&#8249;</button>
+        <div class="product-carousel" id="productCarousel">
+          <a href="/product/tallow-cream.html" class="strip-item">
+            <div class="strip-img-wrap best-seller-strip">
+              <img src="/images/products/tallow-cream.png" alt="Natural Whipped Tallow Cream" loading="lazy">
+              <span class="strip-badge">Best Seller!</span>
+            </div>
+            <p class="strip-name">Natural Whipped Tallow Cream (Moisturizer) Unscented</p>
+            <p class="strip-price">180,000₫</p>
+          </a>
+          <a href="/product/cleaner-lavender.html" class="strip-item">
+            <div class="strip-img-wrap">
+              <img src="/images/products/cleaner-lavender.png" alt="Natural Multi-Purpose Surface Cleaner Lavender" loading="lazy">
+            </div>
+            <p class="strip-name">Natural Multi-Purpose Surface Cleaner Lavender</p>
+            <p class="strip-price">200,000₫</p>
+          </a>
+          <a href="/product/cleaner-unscented.html" class="strip-item">
+            <div class="strip-img-wrap">
+              <img src="/images/products/cleaner-unscented.png" alt="Natural Multi-Purpose Surface Cleaner Unscented" loading="lazy">
+            </div>
+            <p class="strip-name">Natural Multi-Purpose Surface Cleaner Unscented</p>
+            <p class="strip-price">200,000₫</p>
+          </a>
+          <a href="/product/cocoa-sunscreen.html" class="strip-item">
+            <div class="strip-img-wrap">
+              <img src="/images/products/cocoa-sunscreen.png" alt="Cocoa Butter Mineral Sunscreen" loading="lazy">
+            </div>
+            <p class="strip-name">Cocoa Butter Mineral Sunscreen [PLANT BASED]</p>
+            <p class="strip-price">200,000₫</p>
+          </a>
+          <a href="/product/tallow-sunscreen.html" class="strip-item">
+            <div class="strip-img-wrap">
+              <img src="/images/products/tallow-sunscreen.png" alt="Tallow Mineral Sunscreen Active Sports" loading="lazy">
+            </div>
+            <p class="strip-name">Tallow Mineral Sunscreen [ACTIVE SPORTS]</p>
+            <p class="strip-price">180,000₫</p>
+          </a>
+          <a href="/product/laundry-unscented.html" class="strip-item">
+            <div class="strip-img-wrap">
+              <img src="/images/products/laundry-unscented.png" alt="Natural Laundry Detergent Unscented" loading="lazy">
+            </div>
+            <p class="strip-name">Natural Laundry Detergent Unscented</p>
+            <p class="strip-price">300,000₫</p>
+          </a>
+          <a href="/product/laundry-lavender.html" class="strip-item">
+            <div class="strip-img-wrap">
+              <img src="/images/products/laundry-lavender.png" alt="Natural Laundry Detergent Lavender" loading="lazy">
+            </div>
+            <p class="strip-name">Natural Laundry Detergent Lavender</p>
+            <p class="strip-price">300,000₫</p>
+          </a>
         </div>
-        <p class="strip-name">Natural Whipped Tallow<br>Cream (Moisturizer)</p>
-        <p class="strip-price">180,000₫</p>
-      </a>
-      <a href="/product/cleaner-lavender.html" class="strip-item">
-        <div class="strip-img-wrap">
-          <img src="/images/products/cleaner-lavender.png" alt="Natural Multi-Purpose Surface Cleaner Lavender" loading="lazy">
-        </div>
-        <p class="strip-name">Natural Multi-Purpose<br>Surface Cleaner Lavender</p>
-        <p class="strip-price">200,000₫</p>
-      </a>
-      <a href="/product/cleaner-unscented.html" class="strip-item">
-        <div class="strip-img-wrap">
-          <img src="/images/products/cleaner-unscented.png" alt="Natural Multi-Purpose Surface Cleaner Unscented" loading="lazy">
-        </div>
-        <p class="strip-name">Natural Multi-Purpose<br>Surface Cleaner Unscented</p>
-        <p class="strip-price">200,000₫</p>
-      </a>
-      <a href="/product/cocoa-sunscreen.html" class="strip-item">
-        <div class="strip-img-wrap">
-          <img src="/images/products/cocoa-sunscreen.png" alt="Cocoa Butter Mineral Sunscreen" loading="lazy">
-        </div>
-        <p class="strip-name">Cocoa Butter Mineral<br>Sunscreen [PLANT BASED]</p>
-        <p class="strip-price">200,000₫</p>
-      </a>
+        <button class="product-arrow product-next" aria-label="Next" onclick="moveProducts(1)">&#8250;</button>
+      </div>
     </div>
   </section>
 
@@ -108,11 +144,12 @@
 
   <!-- Contact Us -->
   <section class="contact" id="contact">
+    <div class="contact-bg-img"></div>
     <div class="container">
       <h2>Contact Us</h2>
       <div class="contact-cols">
         <a href="https://zalo.me/84392648332" class="contact-col" target="_blank" rel="noopener">
-          <span class="contact-col-label">Join</span>
+          <span class="contact-col-label">Zalo</span>
           <span class="contact-col-detail">Line / Phone</span>
           <span class="contact-col-value">+84 39 264 8332</span>
         </a>
@@ -361,6 +398,31 @@
       msg.style.opacity = '1';
       setTimeout(() => { msg.style.opacity = '0'; }, 4000);
     }
+
+    // Product carousel
+    let productIdx = 0;
+    const productItems = document.querySelectorAll('#productCarousel .strip-item');
+    const visibleCount = () => window.innerWidth < 600 ? 2 : window.innerWidth < 900 ? 3 : 4;
+    function renderProducts() {
+      const vc = visibleCount();
+      const maxIdx = productItems.length - vc;
+      if (productIdx < 0) productIdx = 0;
+      if (productIdx > maxIdx) productIdx = maxIdx;
+      const itemW = 100 / vc;
+      productItems.forEach((item, i) => {
+        item.style.minWidth = itemW + '%';
+        item.style.maxWidth = itemW + '%';
+      });
+      document.getElementById('productCarousel').style.transform = `translateX(-${productIdx * (100 / vc)}%)`;
+      document.querySelector('.product-prev').style.opacity = productIdx <= 0 ? '0.3' : '1';
+      document.querySelector('.product-next').style.opacity = productIdx >= productItems.length - vc ? '0.3' : '1';
+    }
+    function moveProducts(dir) {
+      productIdx += dir;
+      renderProducts();
+    }
+    renderProducts();
+    window.addEventListener('resize', renderProducts);
 
     // FAQ tabs — show/hide by category
     function filterFaq(btn, cat) {

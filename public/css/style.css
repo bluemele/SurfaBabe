@@ -401,112 +401,68 @@ a { text-decoration: none; color: inherit; }
   font-family: 'DM Sans', 'Helvetica Neue', Arial, sans-serif;
 }
 
-/* ===== Story Block — solid teal bg ===== */
-.story-block {
-  background: var(--teal);
-  padding: 80px 28px;
+/* ===== Story Section — peach bg, two-column ===== */
+.story-section {
+  background: var(--peach);
+  padding: 80px 0;
 }
-.story-block-inner {
-  max-width: 680px;
-  margin: 0 auto;
+.story-title {
   text-align: center;
-}
-.story-eyebrow {
-  font-family: 'DM Sans', 'Helvetica Neue', Arial, sans-serif;
-  font-size: 0.74rem;
-  font-weight: 600;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.7);
-  margin-bottom: 16px;
-  display: block;
-}
-.story-heading {
-  font-size: clamp(1.6rem, 3vw, 2.2rem);
-  color: var(--white);
-  margin-bottom: 32px;
-  font-style: italic;
-  line-height: 1.3;
-}
-.story-body {
-  text-align: left;
-  margin-bottom: 32px;
-}
-.story-body p {
-  color: rgba(255,255,255,0.85);
-  font-size: 0.93rem;
-  line-height: 1.8;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  color: var(--teal-dark);
+  font-weight: 400;
   margin-bottom: 14px;
 }
-.btn-story {
-  display: inline-block;
-  background: var(--white);
-  color: var(--teal-deep);
-  padding: 12px 36px;
-  border-radius: var(--radius-pill);
-  font-family: 'DM Sans', 'Helvetica Neue', Arial, sans-serif;
+.story-subtitle {
+  text-align: center;
+  font-style: italic;
+  color: var(--salmon);
+  font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+  font-family: 'Fraunces', Georgia, serif;
+  max-width: 680px;
+  margin: 0 auto 64px;
+  line-height: 1.5;
+}
+.story-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+  margin-bottom: 72px;
+}
+.story-row-flip {
+  direction: rtl;
+}
+.story-row-flip > * {
+  direction: ltr;
+}
+.story-text p {
+  font-size: 0.95rem;
+  color: var(--text);
+  line-height: 1.85;
+  margin-bottom: 16px;
+}
+.story-text strong {
+  color: var(--salmon);
   font-weight: 600;
-  font-size: 0.9rem;
-  transition: var(--transition);
-  text-decoration: none;
 }
-.btn-story:hover {
-  background: var(--cream);
-  transform: translateY(-1px);
-}
-
-/* ===== Story Collage — large scattered photos on white ===== */
-.story-collage {
-  background: #ffffff;
-  padding: 40px 0 0;
-  overflow: hidden;
-}
-.collage-wrap {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 20px 60px 80px;
+.story-photo {
   position: relative;
-  min-height: 1280px;
 }
-.sc-photo {
-  position: absolute;
-  border-radius: var(--radius);
+.story-photo img {
+  width: 100%;
+  border-radius: 20px;
   object-fit: cover;
-  box-shadow: 0 6px 28px rgba(0,0,0,0.12);
-}
-/* Beach girl running — top right */
-.sc-1 {
-  width: 340px;
-  height: 250px;
-  top: 40px;
-  right: 0;
-}
-/* Beach apply — middle left, portrait */
-.sc-2 {
-  width: 295px;
-  height: 375px;
-  top: 320px;
-  left: 0;
-}
-/* Burn photo — right side */
-.sc-3-wrap {
-  position: absolute;
-  top: 560px;
-  right: 30px;
-  width: 260px;
-}
-.sc-3-wrap img {
-  width: 260px;
-  height: 285px;
-  border-radius: var(--radius);
-  object-fit: cover;
-  box-shadow: 0 6px 28px rgba(0,0,0,0.12);
   display: block;
+  max-height: 500px;
+}
+.story-burn-wrap {
+  position: relative;
 }
 .burn-bubble-teal {
   position: absolute;
-  top: -44px;
-  right: -28px;
+  top: 20px;
+  right: -16px;
   background: #9ddbd8;
   color: #1d5f5c;
   font-size: 0.75rem;
@@ -516,6 +472,7 @@ a { text-decoration: none; color: inherit; }
   white-space: nowrap;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   line-height: 1.35;
+  z-index: 2;
 }
 .burn-bubble-teal::after {
   content: '';
@@ -526,12 +483,25 @@ a { text-decoration: none; color: inherit; }
   border-top-color: #9ddbd8;
   border-bottom: none;
 }
-/* Ailie with product — bottom left, portrait */
-.sc-4 {
-  width: 310px;
-  height: 390px;
-  top: 860px;
-  left: 20px;
+.story-cta-wrap {
+  text-align: center;
+  padding-top: 12px;
+}
+.btn-story-new {
+  display: inline-block;
+  background: var(--teal);
+  color: var(--white);
+  padding: 14px 44px;
+  border-radius: 100px;
+  font-family: 'DM Sans', 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 500;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: var(--transition);
+}
+.btn-story-new:hover {
+  background: var(--teal-dark);
+  transform: translateY(-1px);
 }
 
 /* ===== Contact ===== */
@@ -1276,12 +1246,7 @@ a { text-decoration: none; color: inherit; }
 
 /* ===== Responsive ===== */
 @media (max-width: 960px) {
-  .collage-wrap { min-height: 780px; }
-  .sc-1 { width: 220px; height: 160px; right: 20px; }
-  .sc-2 { width: 200px; height: 250px; left: 20px; top: 170px; }
-  .sc-3-wrap { top: 300px; right: 30px; width: 190px; }
-  .sc-3-wrap img { width: 190px; height: 210px; }
-  .sc-4 { width: 210px; height: 260px; top: 520px; left: 30px; }
+  .story-row { gap: 36px; }
 }
 
 @media (max-width: 768px) {
@@ -1308,24 +1273,13 @@ a { text-decoration: none; color: inherit; }
   .footer-inner { flex-direction: column; gap: 20px; }
   .footer-links { flex-wrap: wrap; gap: 14px; }
   .product-detail-grid { grid-template-columns: 1fr; gap: 24px; }
-  .collage-wrap { min-height: 680px; padding: 0 20px; }
-  .sc-1 { width: 180px; height: 130px; right: 10px; }
-  .sc-2 { width: 170px; height: 210px; left: 10px; top: 150px; }
-  .sc-3-wrap { top: 260px; right: 20px; width: 160px; }
-  .sc-3-wrap img { width: 160px; height: 180px; }
-  .sc-4 { width: 180px; height: 220px; top: 450px; left: 20px; }
+  .story-row { grid-template-columns: 1fr; gap: 28px; }
+  .story-row-flip { direction: ltr; }
 }
 
 @media (max-width: 480px) {
   .product-arrow { font-size: 1.8rem; }
   .customers-mosaic { grid-template-columns: repeat(2, 1fr); }
-  .story-collage { padding: 40px 0 60px; }
-  .collage-wrap { min-height: 600px; padding: 0 12px; }
-  .sc-1 { width: 150px; height: 110px; right: 8px; top: 0; }
-  .sc-2 { width: 150px; height: 185px; left: 8px; top: 130px; }
-  .sc-3-wrap { top: 240px; right: 12px; width: 140px; }
-  .sc-3-wrap img { width: 140px; height: 155px; }
-  .sc-4 { width: 155px; height: 190px; top: 410px; left: 12px; }
   .newsletter-form { flex-direction: column; align-items: center; }
   .newsletter-form input { width: 100%; }
   .faq-tabs { gap: 4px; }

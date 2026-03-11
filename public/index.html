@@ -57,6 +57,7 @@
       <h2 class="products-heading">Products</h2>
       <div class="product-carousel-wrap">
         <button class="product-arrow product-prev" aria-label="Previous" onclick="moveProducts(-1)">&#8249;</button>
+        <div class="product-carousel-viewport">
         <div class="product-carousel" id="productCarousel">
           <a href="/product/tallow-cream.html" class="strip-item">
             <div class="strip-img-wrap best-seller-strip">
@@ -109,9 +110,17 @@
             <p class="strip-price">300,000₫</p>
           </a>
         </div>
+        </div>
         <button class="product-arrow product-next" aria-label="Next" onclick="moveProducts(1)">&#8250;</button>
       </div>
     </div>
+  </section>
+
+  <!-- Promo Video -->
+  <section class="promo-video-section">
+    <video autoplay muted loop playsinline>
+      <source src="https://video.wixstatic.com/video/9dedfb_e021f1e7d091441cad186e70b548ebf6/1080p/mp4/file.mp4" type="video/mp4">
+    </video>
   </section>
 
   <!-- Story Section — peach bg, two-column text + photos -->
@@ -172,24 +181,19 @@
     <div class="container">
       <h2>Contact Us</h2>
       <div class="contact-cols">
-        <a href="https://zalo.me/84392648332" class="contact-col" target="_blank" rel="noopener">
-          <span class="contact-col-label">Zalo</span>
-          <span class="contact-col-detail">Line / Phone</span>
-          <span class="contact-col-value">+84 39 264 8332</span>
-        </a>
-        <a href="https://wa.me/84392648332" class="contact-col" target="_blank" rel="noopener">
+        <a href="https://wa.link/l4flv1" class="contact-col" target="_blank" rel="noopener">
+          <img src="/images/icon-wa.png" alt="WhatsApp" class="contact-col-icon">
           <span class="contact-col-label">WhatsApp</span>
-          <span class="contact-col-detail">&nbsp;</span>
           <span class="contact-col-value">+84 39 264 8332</span>
         </a>
-        <a href="https://www.facebook.com/surfababewellness" class="contact-col" target="_blank" rel="noopener">
+        <a href="https://www.facebook.com/SurfaBabe/" class="contact-col" target="_blank" rel="noopener">
+          <img src="/images/icon-fb.png" alt="Facebook" class="contact-col-icon">
           <span class="contact-col-label">Facebook</span>
-          <span class="contact-col-detail">&nbsp;</span>
           <span class="contact-col-value">SurfaBabe</span>
         </a>
         <a href="https://www.instagram.com/surfababe.wellness/" class="contact-col" target="_blank" rel="noopener">
+          <img src="/images/icon-ig.png" alt="Instagram" class="contact-col-icon">
           <span class="contact-col-label">Instagram</span>
-          <span class="contact-col-detail">&nbsp;</span>
           <span class="contact-col-value">@surfababe.wellness</span>
         </a>
       </div>
@@ -272,77 +276,82 @@
       <div class="faq-grid" id="faqGrid">
 
         <details class="faq-item" data-cat="tallow">
-          <summary>What is tallow and why use it in skincare?</summary>
+          <summary><span class="faq-num">01</span><span class="faq-q">What is tallow and why use it in skincare?</span></summary>
           <p>Tallow is rendered beef fat from grass-fed cattle. It's been used for centuries in skincare because it's rich in vitamins A, D, E, K and fatty acids that closely match human skin's natural oils. It absorbs beautifully and deeply nourishes.</p>
         </details>
 
         <details class="faq-item" data-cat="tallow">
-          <summary>What's the difference between the 2 sunscreens?</summary>
+          <summary><span class="faq-num">02</span><span class="faq-q">What's the difference between the 2 sunscreens?</span></summary>
           <p>The main difference is the base ingredient: Tallow vs Cocoa Butter. The Tallow (ACTIVE) is great for active people because it's more water and sweat resistant. The Cocoa Butter (Plant-Based) is for those who prefer plant-based options or are less active.</p>
         </details>
 
         <details class="faq-item" data-cat="tallow">
-          <summary>Are your sunscreens reef-safe?</summary>
+          <summary><span class="faq-num">03</span><span class="faq-q">Are your sunscreens reef-safe?</span></summary>
           <p>Yes! Both sunscreens use non-nano zinc oxide and are completely reef-safe and biodegradable. They provide broad-spectrum UVA/UVB protection. Reapply every 2 hours or after swimming.</p>
         </details>
 
         <details class="faq-item" data-cat="cleaner">
-          <summary>Does the surface cleaner disinfect?</summary>
+          <summary><span class="faq-num">04</span><span class="faq-q">Does the surface cleaner disinfect?</span></summary>
           <p>It does NOT disinfect surfaces, but cleans well against dirt and grease. It has a pH of about 9-10 when mixed, making it alkaline and effective for everyday cleaning. For disinfecting, use a separate product.</p>
         </details>
 
         <details class="faq-item" data-cat="laundry">
-          <summary>How much laundry detergent do I use per load?</summary>
+          <summary><span class="faq-num">05</span><span class="faq-q">How much laundry detergent do I use per load?</span></summary>
           <p>Just 1 tablespoon per load! It's highly concentrated so a little goes a long way. One 1kg bag lasts 65+ loads. Safe for all washing machines including HE machines.</p>
         </details>
 
         <details class="faq-item" data-cat="tallow">
-          <summary>Is tallow cream safe for sensitive skin?</summary>
+          <summary><span class="faq-num">06</span><span class="faq-q">Is tallow cream safe for sensitive skin?</span></summary>
           <p>Yes! Tallow's fatty acid profile is very similar to human skin's own sebum, making it exceptionally compatible. We always recommend a patch test first for any new skincare product.</p>
         </details>
 
         <details class="faq-item" data-cat="laundry">
-          <summary>Is the laundry detergent safe for baby clothes?</summary>
+          <summary><span class="faq-num">07</span><span class="faq-q">Is the laundry detergent safe for baby clothes?</span></summary>
           <p>Yes! Our detergent is free from harsh chemicals, sulfates, and synthetic fragrances. It's gentle enough for baby clothes and sensitive skin. Many parents in our community use it exclusively for their babies' laundry.</p>
         </details>
 
         <details class="faq-item" data-cat="laundry">
-          <summary>What scents are available for the laundry detergent?</summary>
+          <summary><span class="faq-num">08</span><span class="faq-q">What scents are available for the laundry detergent?</span></summary>
           <p>We offer two versions: Lavender (lightly scented with real lavender essential oil) and Unscented (fragrance-free, perfect for very sensitive people). Both clean equally well!</p>
         </details>
 
         <details class="faq-item" data-cat="laundry">
-          <summary>How do I order?</summary>
+          <summary><span class="faq-num">09</span><span class="faq-q">How do I order?</span></summary>
           <p>Message us on WhatsApp or Zalo (+84 39 264 8332) with what you'd like! We accept bank transfer (Vietnamese banks), MoMo, and cash on delivery in the HCMC area.</p>
         </details>
 
         <details class="faq-item" data-cat="tallow">
-          <summary>How do I use the tallow cream?</summary>
+          <summary><span class="faq-num">10</span><span class="faq-q">How do I use the tallow cream?</span></summary>
           <p>Apply a small amount to clean, dry skin. A little goes a long way! It warms up with your body heat and absorbs beautifully. Use morning and evening as your moisturizer.</p>
         </details>
 
         <details class="faq-item" data-cat="cleaner">
-          <summary>How do I mix the surface cleaner?</summary>
+          <summary><span class="faq-num">11</span><span class="faq-q">How do I mix the surface cleaner?</span></summary>
           <p>Mix 1 teaspoon of powder per 1 liter of water in a spray bottle. Shake well before each use. One 1kg bag makes 65+ liters of cleaning solution.</p>
         </details>
 
       </div>
       <div class="faq-cta">
-        <a href="/faq.html" class="btn btn-outline-light">See All 40+ FAQs</a>
+        <a href="/faq.html" class="btn-faq-more">See All 40+ FAQs</a>
       </div>
     </div>
   </section>
 
   <!-- Join Our Community / Newsletter -->
   <section class="newsletter" id="newsletter">
-    <div class="container">
-      <h2>Join Our Community!</h2>
-      <p>Get natural living tips, new product alerts &amp; exclusive offers straight to your inbox.</p>
-      <form class="newsletter-form" onsubmit="handleNewsletter(event)">
-        <input type="email" id="newsletter-email" placeholder="Your email address" required>
-        <button type="submit" class="btn btn-subscribe">Subscribe</button>
-      </form>
-      <p id="newsletter-msg" style="margin-top:12px;font-size:0.85rem;opacity:0;transition:opacity 0.3s;color:#82CDCE;"></p>
+    <div class="newsletter-inner">
+      <div class="newsletter-content">
+        <h2>Join Our Community!</h2>
+        <p>Sign up for Exclusive discounts, Early access to our NEW products, and eco-friendly tips delivered straight to your inbox.</p>
+        <form class="newsletter-form" onsubmit="handleNewsletter(event)">
+          <input type="email" id="newsletter-email" placeholder="Email" required>
+          <button type="submit" class="btn btn-subscribe">Sign Up</button>
+        </form>
+        <p id="newsletter-msg" style="margin-top:12px;font-size:0.85rem;opacity:0;transition:opacity 0.3s;color:var(--teal-dark);"></p>
+      </div>
+      <div class="newsletter-photo">
+        <img src="/images/newsletter-photo.jpg" alt="Natural Living" loading="lazy">
+      </div>
     </div>
   </section>
 
@@ -367,6 +376,14 @@
       <p>&copy; 2026 SurfaBabe Wellness. All Rights Reserved.</p>
     </div>
   </footer>
+
+  <!-- Floating contact buttons -->
+  <a href="https://wa.link/l4flv1" class="float-btn float-wa" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <img src="/images/float-wa.png" alt="WhatsApp">
+  </a>
+  <a href="http://m.me/SurfaBabe" class="float-btn float-msg" target="_blank" rel="noopener" aria-label="Messenger">
+    <img src="/images/float-messenger.png" alt="Messenger">
+  </a>
 
   <script>
     // Sticky nav
@@ -423,26 +440,26 @@
       setTimeout(() => { msg.style.opacity = '0'; }, 4000);
     }
 
-    // Product carousel
+    // Product carousel — infinite loop
     let productIdx = 0;
     const productItems = document.querySelectorAll('#productCarousel .strip-item');
     const visibleCount = () => window.innerWidth < 600 ? 2 : window.innerWidth < 900 ? 3 : 4;
     function renderProducts() {
       const vc = visibleCount();
-      const maxIdx = productItems.length - vc;
-      if (productIdx < 0) productIdx = 0;
-      if (productIdx > maxIdx) productIdx = maxIdx;
+      const total = productItems.length;
       const itemW = 100 / vc;
-      productItems.forEach((item, i) => {
+      productItems.forEach(item => {
         item.style.minWidth = itemW + '%';
         item.style.maxWidth = itemW + '%';
       });
-      document.getElementById('productCarousel').style.transform = `translateX(-${productIdx * (100 / vc)}%)`;
-      document.querySelector('.product-prev').style.opacity = productIdx <= 0 ? '0.3' : '1';
-      document.querySelector('.product-next').style.opacity = productIdx >= productItems.length - vc ? '0.3' : '1';
+      document.getElementById('productCarousel').style.transform = `translateX(-${productIdx * itemW}%)`;
+      document.querySelector('.product-prev').style.opacity = '1';
+      document.querySelector('.product-next').style.opacity = '1';
     }
     function moveProducts(dir) {
-      productIdx += dir;
+      const vc = visibleCount();
+      const total = productItems.length;
+      productIdx = (productIdx + dir + total) % total;
       renderProducts();
     }
     renderProducts();

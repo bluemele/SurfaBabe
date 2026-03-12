@@ -783,12 +783,36 @@ a { text-decoration: none; color: inherit; }
   background: var(--taupe);
   color: var(--text);
 }
+.faq-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  max-width: 920px;
+  margin: 0 auto;
+  gap: 20px;
+}
 .faq h2 {
   font-size: 1.9rem;
-  text-align: center;
+  text-align: left;
   margin-bottom: 8px;
   color: var(--teal-dark);
+  font-style: italic;
 }
+.faq-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  color: var(--text-light);
+  white-space: nowrap;
+}
+.faq-search-icon {
+  color: var(--text-light);
+  display: flex;
+  align-items: center;
+  transition: var(--transition);
+}
+.faq-search-icon:hover { color: var(--teal-dark); }
 .faq-tabs {
   display: flex;
   justify-content: center;
@@ -816,7 +840,7 @@ a { text-decoration: none; color: inherit; }
 }
 .faq-tab.active {
   color: var(--salmon);
-  border-bottom-color: var(--salmon);
+  border-bottom-color: var(--teal);
 }
 .faq-grid {
   max-width: 920px;

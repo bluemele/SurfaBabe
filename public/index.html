@@ -365,9 +365,18 @@
   <!-- FAQ -->
   <section class="faq" id="faq">
     <div class="container">
-      <h2>Frequently Asked Questions</h2>
+      <div class="faq-header">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-search">
+          <span>Looking for something?</span>
+          <a href="/faq.html" class="faq-search-icon" aria-label="Search FAQs">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </a>
+        </div>
+      </div>
       <div class="faq-tabs">
-        <button class="faq-tab active" onclick="filterFaq(this, 'laundry')">Laundry Detergent</button>
+        <button class="faq-tab active" onclick="filterFaq(this, 'sunscreen')">Sunscreen</button>
+        <button class="faq-tab" onclick="filterFaq(this, 'laundry')">Laundry Detergent</button>
         <button class="faq-tab" onclick="filterFaq(this, 'tallow')">Whipped Tallow Cream</button>
         <button class="faq-tab" onclick="filterFaq(this, 'cleaner')">Surface Cleaner</button>
       </div>
@@ -378,14 +387,29 @@
           <p>Tallow is rendered beef fat from grass-fed cattle. It's been used for centuries in skincare because it's rich in vitamins A, D, E, K and fatty acids that closely match human skin's natural oils. It absorbs beautifully and deeply nourishes.</p>
         </details>
 
-        <details class="faq-item" data-cat="tallow">
-          <summary><span class="faq-num">02</span><span class="faq-q">What's the difference between the 2 sunscreens?</span></summary>
+        <details class="faq-item" data-cat="sunscreen">
+          <summary><span class="faq-num">01</span><span class="faq-q">What is SurfaBabe's All Natural Mineral Sunscreen?</span></summary>
+          <p>Our All Natural Sunscreen effectively protects you from the sun's rays without any chemicals, fragrances, preservatives or other unnecessary and harmful additives. Our all natural sunscreen has 4 simple, safe, and biodegradable ingredients making it safe and effective for you, your family, and the planet. Unlike chemical sunscreens that may cause health problems, our natural sunscreen is safe for long-term use and gentle on sensitive skin.</p>
+        </details>
+
+        <details class="faq-item" data-cat="sunscreen">
+          <summary><span class="faq-num">02</span><span class="faq-q">Is All Natural Sunscreen as effective as chemical sunscreen?</span></summary>
+          <p>Yes! Our mineral sunscreen uses non-nano zinc oxide which provides broad-spectrum UVA/UVB protection. It sits on top of the skin and physically blocks rays rather than absorbing them like chemical sunscreens. Reapply every 2 hours or after swimming.</p>
+        </details>
+
+        <details class="faq-item" data-cat="sunscreen">
+          <summary><span class="faq-num">03</span><span class="faq-q">What's the difference of the 2 Sunscreens?</span></summary>
           <p>The main difference is the base ingredient: Tallow vs Cocoa Butter. The Tallow (ACTIVE) is great for active people because it's more water and sweat resistant. The Cocoa Butter (Plant-Based) is for those who prefer plant-based options or are less active.</p>
         </details>
 
-        <details class="faq-item" data-cat="tallow">
-          <summary><span class="faq-num">03</span><span class="faq-q">Are your sunscreens reef-safe?</span></summary>
+        <details class="faq-item" data-cat="sunscreen">
+          <summary><span class="faq-num">04</span><span class="faq-q">Are your sunscreens reef-safe?</span></summary>
           <p>Yes! Both sunscreens use non-nano zinc oxide and are completely reef-safe and biodegradable. They provide broad-spectrum UVA/UVB protection. Reapply every 2 hours or after swimming.</p>
+        </details>
+
+        <details class="faq-item" data-cat="sunscreen">
+          <summary><span class="faq-num">05</span><span class="faq-q">Is All Natural Sunscreen safe for children?</span></summary>
+          <p>Yes! Our mineral sunscreen is made with simple, natural ingredients and is gentle enough for children. It contains no harsh chemicals, fragrances, or preservatives. We always recommend a patch test first for any new skincare product, especially for young children.</p>
         </details>
 
         <details class="faq-item" data-cat="cleaner">
@@ -474,6 +498,7 @@
         <div class="footer-contact-info">
           <a href="mailto:Uptoyou.wellness@gmail.com"><img src="/images/icon-email.png" alt="" class="footer-contact-icon"> Uptoyou.wellness@gmail.com</a>
           <a href="https://wa.link/l4flv1"><img src="/images/icon-wa.png" alt="" class="footer-contact-icon"> +84 39 264 8332</a>
+          <a href="https://zalo.me/84392648332" target="_blank" rel="noopener"><img src="/images/icon-zalo.png" alt="" class="footer-contact-icon"> +84 39 264 8332</a>
           <a href="https://www.instagram.com/surfababe.wellness/" target="_blank" rel="noopener"><img src="/images/icon-ig.png" alt="" class="footer-contact-icon"> surfababe.wellness</a>
           <a href="https://www.facebook.com/SurfaBabe/" target="_blank" rel="noopener"><img src="/images/icon-fb.png" alt="" class="footer-contact-icon"> SurfaBabe</a>
         </div>
@@ -580,8 +605,8 @@
         item.style.display = item.dataset.cat === cat ? '' : 'none';
       });
     }
-    // Init: show only laundry
-    filterFaq(document.querySelector('.faq-tab.active'), 'laundry');
+    // Init: show only sunscreen (first tab)
+    filterFaq(document.querySelector('.faq-tab.active'), 'sunscreen');
   </script>
 
 </body>

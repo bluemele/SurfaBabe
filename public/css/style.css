@@ -864,20 +864,20 @@ a { text-decoration: none; color: inherit; }
 .faq-tabs {
   display: flex;
   justify-content: center;
-  gap: 4px;
+  gap: 12px;
   flex-wrap: wrap;
   margin-bottom: 36px;
   margin-top: 24px;
 }
 .faq-tab {
-  padding: 10px 28px;
+  padding: 10px 32px;
   border-radius: 0;
-  font-size: 0.92rem;
+  font-size: 1rem;
   font-weight: 500;
   background: transparent;
   color: rgba(0,0,0,0.5);
   border: none;
-  border-bottom: 2px solid transparent;
+  border-bottom: 3px solid transparent;
   cursor: pointer;
   transition: var(--transition);
   font-family: 'DM Sans', 'Helvetica Neue', Arial, sans-serif;
@@ -928,6 +928,7 @@ a { text-decoration: none; color: inherit; }
   font-family: 'Fraunces', Georgia, serif;
   font-size: 2.6rem;
   font-weight: 700;
+  font-style: italic;
   flex-shrink: 0;
   padding: 0;
   line-height: 1;

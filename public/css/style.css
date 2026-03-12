@@ -627,20 +627,19 @@ a { text-decoration: none; color: inherit; }
 .testimonials {
   background: var(--sage);
   padding: 60px 24px;
-  text-align: center;
 }
 .testimonials-inner {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 20px;
-  max-width: 680px;
+  max-width: 780px;
   margin: 0 auto;
 }
 .carousel-track {
   flex: 1;
   position: relative;
-  min-height: 100px;
+  min-height: 220px;
 }
 .carousel-slide {
   display: none;
@@ -648,18 +647,40 @@ a { text-decoration: none; color: inherit; }
 .carousel-slide.active {
   display: block;
 }
+.carousel-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 28px;
+}
+.carousel-img {
+  width: 240px;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+.carousel-text {
+  text-align: left;
+  padding-top: 8px;
+}
+.carousel-divider {
+  border: none;
+  border-top: 2px solid var(--teal-dark);
+  width: 40px;
+  margin: 10px 0 16px;
+}
 .carousel-quote {
-  font-size: 0.98rem;
+  font-size: 0.95rem;
   color: var(--text);
   line-height: 1.75;
   font-style: italic;
-  margin-bottom: 12px;
-  font-family: 'Fraunces', serif;
+  font-family: 'DM Sans', 'Helvetica Neue', Arial, sans-serif;
 }
 .carousel-name {
   font-weight: 600;
-  font-size: 0.88rem;
-  color: var(--teal-dark);
+  font-size: 1rem;
+  color: var(--text);
+  font-family: 'DM Sans', 'Helvetica Neue', Arial, sans-serif;
 }
 .carousel-btn {
   background: none;
@@ -895,7 +916,7 @@ a { text-decoration: none; color: inherit; }
 .footer {
   background: var(--teal-footer);
   color: rgba(255,255,255,0.85);
-  padding: 40px 28px 0;
+  padding: 48px 28px 0;
 }
 .footer-inner {
   max-width: 1100px;
@@ -903,35 +924,64 @@ a { text-decoration: none; color: inherit; }
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  padding-bottom: 32px;
-  gap: 24px;
+  padding-bottom: 36px;
+  gap: 48px;
 }
-.footer-logo {
-  font-family: 'Dancing Script', cursive;
-  font-size: 1.5rem;
-  font-weight: 700;
+.footer-left {
+  flex: 1;
+}
+.footer-tagline {
+  font-family: 'Caveat', 'Dancing Script', cursive;
+  font-size: 2.2rem;
+  font-weight: 400;
   color: var(--white);
-  display: block;
-  margin-bottom: 8px;
+  margin-bottom: 24px;
+  line-height: 1.2;
 }
-.footer-brand p {
-  font-size: 0.82rem;
-  max-width: 240px;
-  opacity: 0.75;
-  line-height: 1.6;
+.footer-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 48px;
 }
-.footer-links {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-  align-items: flex-start;
-}
-.footer-links a {
-  font-size: 0.82rem;
+.footer-nav a {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.85);
+  text-decoration: underline;
+  text-underline-offset: 3px;
   transition: var(--transition);
-  opacity: 0.75;
+  line-height: 2.2;
 }
-.footer-links a:hover { opacity: 1; color: var(--white); }
+.footer-nav a:hover { color: var(--white); }
+.footer-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 20px;
+}
+.footer-logo-img {
+  width: 200px;
+  height: auto;
+}
+.footer-contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-end;
+}
+.footer-contact-info a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.85);
+  transition: var(--transition);
+}
+.footer-contact-info a:hover { color: var(--white); }
+.footer-contact-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
 .footer-bottom {
   max-width: 1100px;
   margin: 0 auto;
@@ -1358,8 +1408,13 @@ a { text-decoration: none; color: inherit; }
   .contact-col { flex: 1 1 40%; border-right: none; border-bottom: 1px solid rgba(0,0,0,0.06); }
   .contact-col:last-child { border-bottom: none; }
   .customers-mosaic { grid-template-columns: repeat(3, 1fr); }
-  .footer-inner { flex-direction: column; gap: 20px; }
-  .footer-links { flex-wrap: wrap; gap: 14px; }
+  .carousel-content { flex-direction: column; align-items: center; gap: 16px; }
+  .carousel-img { width: 180px; height: 180px; }
+  .carousel-text { text-align: center; }
+  .carousel-divider { margin: 10px auto 14px; }
+  .footer-inner { flex-direction: column; gap: 28px; }
+  .footer-right { align-items: flex-start; }
+  .footer-contact-info { align-items: flex-start; }
   .product-detail-grid { grid-template-columns: 1fr; gap: 24px; }
   .story-row { grid-template-columns: 1fr; gap: 28px; }
   .story-row-flip { direction: ltr; }

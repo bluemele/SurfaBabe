@@ -669,6 +669,25 @@ a { text-decoration: none; color: inherit; }
   color: #1da84e;
   font-weight: 600;
 }
+.social-time {
+  font-size: 0.72rem;
+  color: #65676b;
+  display: block;
+  margin-top: 1px;
+}
+.social-messenger {
+  font-size: 0.78rem;
+  color: #65676b;
+  font-style: italic;
+  margin-bottom: 10px;
+}
+.fb-check {
+  vertical-align: middle;
+  margin: 0 2px;
+}
+.fb-avatar {
+  background: #1877F2;
+}
 .social-text {
   font-size: 0.84rem;
   color: var(--text);
@@ -686,6 +705,12 @@ a { text-decoration: none; color: inherit; }
 }
 .social-actions span {
   cursor: default;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.social-actions svg {
+  flex-shrink: 0;
 }
 
 /* ===== Testimonials ===== */

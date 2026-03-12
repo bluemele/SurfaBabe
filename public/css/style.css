@@ -532,7 +532,7 @@ a { text-decoration: none; color: inherit; }
 /* ===== Contact ===== */
 .contact {
   padding: 60px 0;
-  background: #f0ede7;
+  background: #f5f1ec;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -541,8 +541,8 @@ a { text-decoration: none; color: inherit; }
   position: absolute;
   inset: 0;
   background: url('/images/contact-bg.jpg') left center / cover no-repeat;
-  opacity: 0.12;
-  filter: blur(2px);
+  opacity: 0.06;
+  filter: blur(3px);
   transform: scale(1.04);
   pointer-events: none;
 }

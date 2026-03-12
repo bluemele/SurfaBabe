@@ -914,19 +914,19 @@ a { text-decoration: none; color: inherit; }
   font-size: 0.95rem;
   color: var(--text);
   gap: 0;
-  min-height: 80px;
+  min-height: 88px;
 }
 .faq-item summary::-webkit-details-marker { display: none; }
 .faq-num {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 90px;
-  width: 90px;
+  min-width: 100px;
+  width: 100px;
   background: #1a1a1a;
   color: var(--teal);
   font-family: 'Fraunces', Georgia, serif;
-  font-size: 2.2rem;
+  font-size: 2.6rem;
   font-weight: 700;
   flex-shrink: 0;
   padding: 0;
@@ -958,7 +958,7 @@ a { text-decoration: none; color: inherit; }
   content: '∧';
 }
 .faq-item p {
-  padding: 12px 28px 24px 118px;
+  padding: 12px 28px 24px 128px;
   color: var(--text);
   font-size: 0.9rem;
   line-height: 1.75;

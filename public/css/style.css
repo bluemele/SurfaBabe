@@ -126,7 +126,7 @@ a { text-decoration: none; color: inherit; }
   background: var(--salmon);
   color: var(--white);
   border: none;
-  padding: 12px 30px;
+  padding: 14px 30px;
   border-radius: var(--radius-pill);
   font-family: 'DM Sans', 'Helvetica Neue', Arial, sans-serif;
   font-size: 0.92rem;
@@ -134,6 +134,7 @@ a { text-decoration: none; color: inherit; }
   cursor: pointer;
   transition: var(--transition);
   white-space: nowrap;
+  width: 100%;
 }
 .btn-subscribe:hover {
   background: var(--salmon-dark);
@@ -608,32 +609,53 @@ a { text-decoration: none; color: inherit; }
   font-style: normal;
   font-weight: 400;
 }
-.social-wall {
+/* Photo Collage Grid */
+.photo-collage {
   display: grid;
-  grid-template-columns: 1fr 1.2fr 1fr;
-  gap: 12px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
   max-width: 1100px;
-  margin: 0 auto;
-  text-align: left;
+  margin: 0 auto 40px;
 }
-.social-col {
+.collage-col {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
-.social-tile {
-  border-radius: 6px;
+.collage-item {
+  position: relative;
+  border-radius: 10px;
   overflow: hidden;
   line-height: 0;
 }
-.social-tile img {
+.collage-item img {
   width: 100%;
-  aspect-ratio: 1;
+  aspect-ratio: 3/4;
   object-fit: cover;
   display: block;
 }
-.social-tile-lg img {
-  aspect-ratio: 4/3;
+.collage-wide img {
+  aspect-ratio: 1;
+}
+.collage-name {
+  position: absolute;
+  bottom: 8px;
+  left: 10px;
+  font-size: 0.78rem;
+  color: var(--white);
+  font-weight: 600;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+  line-height: 1;
+}
+
+/* Social Reviews Grid */
+.social-reviews {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: left;
 }
 .social-card {
   background: var(--white);
@@ -1003,13 +1025,12 @@ a { text-decoration: none; color: inherit; }
 }
 .newsletter-form {
   display: flex;
+  flex-direction: column;
   gap: 10px;
-  flex-wrap: wrap;
   max-width: 380px;
 }
 .newsletter-form input {
-  flex: 1;
-  min-width: 200px;
+  width: 100%;
   padding: 13px 22px;
   border-radius: var(--radius-pill);
   border: 1px solid rgba(0,0,0,0.12);
@@ -1521,8 +1542,9 @@ a { text-decoration: none; color: inherit; }
   .contact-cols { flex-wrap: wrap; }
   .contact-col { flex: 1 1 40%; border-right: none; border-bottom: 1px solid rgba(0,0,0,0.06); }
   .contact-col:last-child { border-bottom: none; }
-  .social-wall { grid-template-columns: 1fr 1fr; }
-  .social-col:nth-child(3) { display: none; }
+  .photo-collage { grid-template-columns: repeat(3, 1fr); }
+  .photo-collage .collage-col:nth-child(4) { display: none; }
+  .social-reviews { grid-template-columns: 1fr 1fr; }
   .carousel-content { flex-direction: column; align-items: center; gap: 16px; }
   .carousel-img { width: 180px; height: 180px; }
   .carousel-text { text-align: center; }
@@ -1543,8 +1565,9 @@ a { text-decoration: none; color: inherit; }
 
 @media (max-width: 480px) {
   .product-arrow { font-size: 1.8rem; }
-  .social-wall { grid-template-columns: 1fr; }
-  .social-col:nth-child(3) { display: flex; }
+  .photo-collage { grid-template-columns: repeat(2, 1fr); }
+  .photo-collage .collage-col:nth-child(4) { display: flex; }
+  .social-reviews { grid-template-columns: 1fr; }
   .newsletter-form { flex-direction: column; align-items: stretch; }
   .newsletter-form input { width: 100%; }
   .faq-tabs { gap: 4px; }

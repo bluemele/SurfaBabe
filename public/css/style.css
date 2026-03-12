@@ -649,6 +649,33 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* Social Reviews Grid */
+/* WhatsApp-style dark quote cards */
+.wa-quotes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  max-width: 1100px;
+  margin: 0 auto 32px;
+}
+.wa-quote {
+  background: #1a1a1a;
+  color: rgba(255,255,255,0.92);
+  border-radius: 10px;
+  padding: 20px 18px;
+  font-size: 0.84rem;
+  line-height: 1.65;
+}
+.wa-quote p {
+  margin: 0;
+}
+.wa-author {
+  display: block;
+  margin-top: 10px;
+  font-size: 0.76rem;
+  color: var(--teal);
+  font-weight: 600;
+}
+
 .social-reviews {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -763,7 +790,7 @@ a { text-decoration: none; color: inherit; }
   align-items: center;
   justify-content: center;
   gap: 20px;
-  max-width: 780px;
+  max-width: 860px;
   margin: 0 auto;
 }
 .carousel-track {
@@ -1565,6 +1592,7 @@ a { text-decoration: none; color: inherit; }
   .contact-col:last-child { border-bottom: none; }
   .photo-collage { grid-template-columns: repeat(3, 1fr); }
   .photo-collage .collage-col:nth-child(4) { display: none; }
+  .wa-quotes { grid-template-columns: repeat(2, 1fr); }
   .social-reviews { grid-template-columns: 1fr; max-width: 600px; }
   .carousel-content { flex-direction: column; align-items: center; gap: 16px; }
   .carousel-img { width: 180px; height: 180px; }
@@ -1588,6 +1616,7 @@ a { text-decoration: none; color: inherit; }
   .product-arrow { font-size: 1.8rem; }
   .photo-collage { grid-template-columns: repeat(2, 1fr); }
   .photo-collage .collage-col:nth-child(4) { display: flex; }
+  .wa-quotes { grid-template-columns: 1fr; }
   .social-reviews { grid-template-columns: 1fr; }
   .newsletter-form { flex-direction: column; align-items: stretch; }
   .newsletter-form input { width: 100%; }
